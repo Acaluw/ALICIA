@@ -1,3 +1,3 @@
 ## Librerías necesarias para levantar las apis
 
-[] pip install flask
+[ ] pip install flask
