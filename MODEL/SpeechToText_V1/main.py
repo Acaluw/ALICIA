@@ -12,7 +12,7 @@ from TextToSpeech_V1 import main as tts
 voiceRecog = sr.Recognizer()
 activeBool = False
 
-# test
+# Method that listen for a keyword to activate listen() method
 def listenKeyWord():
     with sr.Microphone() as source:
         print("...")
@@ -27,7 +27,7 @@ def listenKeyWord():
     except sr.UnknownValueError:
         return False
 
-# test
+# Method that listen for a current command
 def listen():
     with sr.Microphone() as source:
         print("Command section...")
@@ -41,7 +41,7 @@ def listen():
     except sr.UnknownValueError:
         return ""
     
-# test
+# Active loop that keep listening for the keyword
 while True:
     if not activeBool:
         if listenKeyWord():
