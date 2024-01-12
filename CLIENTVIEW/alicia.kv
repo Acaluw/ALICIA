@@ -6,6 +6,51 @@ BoxLayout:
             pos: self.pos
             size: self.size
 
-    Label:
-        text: "Hola Mundo"
-        color: 0, 0, 0, 1
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 10
+        spacing: 10
+
+        # Camera Area
+        BoxLayout:
+            size_hint_x: None
+            size_hint_y: None
+            width: 600
+            height: 400
+            pos_hint: {'top': 0.9}
+            canvas.before:
+                Color:
+                    rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]
+
+        # Text Area
+        BoxLayout:
+            size_hint_x: None
+            size_hint_y: None
+            width: 250
+            height: 400
+            pos_hint: {'top': 0.9, 'right': 0.1}
+            canvas.before:
+                Color:
+                    rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]
+        
+        # Voice Area
+        BoxLayout:
+            size_hint_x: None
+            size_hint_y: None
+            width: 850
+            height: 100
+            canvas.before:
+                Color:
+                    rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]

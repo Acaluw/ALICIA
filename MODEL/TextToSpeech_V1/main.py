@@ -27,6 +27,10 @@ def timeCheck(time):
     engine.say(lang.esp['timeCheck']+time)
     engine.runAndWait()
 
+def goodbye():
+    engine.say(lang.esp['goodbye'])
+    engine.runAndWait()
+
 def cancion():
     engine.say('Reproduciendo temazo...')
     engine.runAndWait()

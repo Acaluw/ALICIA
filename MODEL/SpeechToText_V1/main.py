@@ -2,6 +2,7 @@
 import sys
 from pathlib import Path
 import speech_recognition as sr
+import threading
 
 # Making TextToSpeech/main.py visible for this file
 root_path = Path(__file__).resolve().parents[1]
@@ -11,6 +12,7 @@ from TextToSpeech_V1 import main as tts
 # Main Variables
 voiceRecog = sr.Recognizer()
 activeBool = False
+activeModel = threading.Event()
 
 # Method that listen for a keyword to activate listen() method
 def listenKeyWord():
@@ -42,15 +44,20 @@ def listen():
         return ""
     
 # Active loop that keep listening for the keyword
-while True:
-    if not activeBool:
-        if listenKeyWord():
-            activeBool = True
-            tts.welcome()
-    else:
-        action = listen()
+def runSpeechModel():
+    global activeBool
+    while True:
+        if not activeBool:
+            if listenKeyWord():
+                activeBool = True
+                tts.welcome()
+        else:
+            action = listen()
 
-        if 'prueba de sonido' in action:
-            activeBool = tts.soundTest()
-        elif 'cancion' in action or 'canción' in action:
-            activeBool = tts.cancion()
+            if 'prueba de sonido' in action:
+                activeBool = tts.soundTest()
+            elif 'cancion' in action or 'canción' in action:
+                activeBool = tts.cancion()
+            elif 'hasta luego' in action:
+                tts.goodbye()
+                activeModel.set()
