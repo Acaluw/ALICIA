@@ -54,10 +54,24 @@ def runSpeechModel():
         else:
             action = listen()
 
-            if 'prueba de sonido' in action:
+            if 'prueba de sonido' in action: # Performs a sound test
                 activeBool = tts.soundTest()
-            elif 'cancion' in action or 'canción' in action:
-                activeBool = tts.cancion()
-            elif 'hasta luego' in action:
+            elif 'reproduce' in action or ('pon' in action and 'alarma' not in action): # Plays a song request by user via youtube
+                print()
+            elif 'pon' in action and 'alarma' in action: # Set an alarm
+                print()
+            elif 'tiempo hace' in action and 'en' not in action: # Get the actual user place weather
+                print()
+            elif 'tiempo hace' in action and 'en' in action: # Get the place weather given by user
+                print()
+            elif 'hora es' in action and 'en' not in action: # Get the actual time of the user
+                print()
+            elif 'hora es' in action and 'en' not in action: # Get the actual time of a zone given by user
+                print()
+            elif 'sube' in action and 'volumen' in action: # Turn volume up
+                print()
+            elif 'baja' in action and 'volumen' in action: # Turn volume down
+                print()
+            elif 'hasta luego' in action: # Close app
                 tts.goodbye()
-                activeModel.set()
+                activeModel.set() # Send an advise to the Kivy's Interface Thread to close the app
