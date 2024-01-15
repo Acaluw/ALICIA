@@ -60,17 +60,17 @@ def runSpeechModel():
                 print()
             elif 'pon' in action and 'alarma' in action: # Set an alarm
                 print()
-            elif 'tiempo hace' in action and 'en' not in action: # Get the actual user place weather
+            elif ('tiempo hace' in action or 'clima hace') and 'en' not in action: # Get the actual user place weather
                 print()
-            elif 'tiempo hace' in action and 'en' in action: # Get the place weather given by user
+            elif ('tiempo hace' in action or 'clima hace') and 'en' in action: # Get the place weather given by user
                 print()
             elif 'hora es' in action and 'en' not in action: # Get the actual time of the user
                 print()
             elif 'hora es' in action and 'en' not in action: # Get the actual time of a zone given by user
                 print()
-            elif 'sube' in action and 'volumen' in action: # Turn volume up
+            elif ('sube' in action or 'subir' in action) and 'volumen' in action: # Turn volume up
                 print()
-            elif 'baja' in action and 'volumen' in action: # Turn volume down
+            elif ('baja' in action or 'bajar' in action) and 'volumen' in action: # Turn volume down
                 print()
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
