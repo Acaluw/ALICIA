@@ -5,9 +5,13 @@
 
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.core.image import Image
+from kivy.graphics.texture import Texture
 from pathlib import Path
+from io import BytesIO
 import threading
 import sys
+import os
 
 # Making SpeechToText_V1/main.py visible for this file
 root_path = Path(__file__).resolve().parents[1]
@@ -33,6 +37,11 @@ class Alicia(App):
         if self.activeWindow.is_set():
             self.stop()
             return False
+        
+    # Method that get an image capture from the camera
+    def cameraImageCapture(self):
+        camera = self.root.ids.cam
+        texture = camera.texture
 
 
 if __name__ == '__main__':
