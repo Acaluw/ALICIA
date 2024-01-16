@@ -3,15 +3,15 @@
 #python -m pip install kivy.deps.gstreamer
 #pip install kivy
 
+import os
+import sys
+import cv2 as cv
+import numpy as np
+import threading
 from kivy.app import App
 from kivy.clock import Clock
-from kivy.core.image import Image
-from kivy.graphics.texture import Texture
 from pathlib import Path
-from io import BytesIO
-import threading
-import sys
-import os
+from PIL import Image
 
 # Making SpeechToText_V1/main.py visible for this file
 root_path = Path(__file__).resolve().parents[1]
@@ -42,6 +42,12 @@ class Alicia(App):
     def cameraImageCapture(self):
         camera = self.root.ids.cam
         texture = camera.texture
+        size = texture.size
+        pixels = texture.pixels
+        pilImg=Image.frombytes(mode='RGBA', size=size,data=pixels)
+        numpypicture=np.array(pilImg)
+        
+        cv.imwrite("CLIENTVIEW/images/productImg.png", numpypicture)
 
 
 if __name__ == '__main__':
