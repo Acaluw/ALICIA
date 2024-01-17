@@ -1,4 +1,7 @@
 BoxLayout:
+    orientation: 'vertical'
+    padding: 10
+    spacing: 10
     canvas.before:
         Color:
             rgba: 0.95, 0.95, 0.95, 1
@@ -8,60 +11,13 @@ BoxLayout:
 
     # Main BoxLayout
     BoxLayout:
-        orientation: 'vertical'
-        padding: 10
+        orientation: 'horizontal'
         spacing: 10
+        height: cam.height
 
         # Camera and Text BoxLayout
         BoxLayout:
-            orientation: 'horizontal'
-            padding: 10
-            spacing: 10
-
-            # Camera Area
-            BoxLayout:
-                size_hint_x: None
-                size_hint_y: None
-                width: 600
-                height: 400
-                pos_hint: {'top': 0.9}
-                canvas.before:
-                    Color:
-                        rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [10]
-                Camera:
-                    id: cam
-                    resolution: (640, 480)
-                    play: True
-
-            # Text Area
-            BoxLayout:
-                size_hint_x: None
-                size_hint_y: None
-                width: 250
-                height: 400
-                pos_hint: {'top': 0.9, 'right': 0.1}
-                canvas.before:
-                    Color:
-                        rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
-                    RoundedRectangle:
-                        size: self.size
-                        pos: self.pos
-                        radius: [10]
-                Button:
-                    text: 'Capturar'
-                    on_press: app.cameraImageCapture()
-
-        
-        # Voice BoxLayout
-        BoxLayout:
-            size_hint_x: None
-            size_hint_y: None
-            width: 850
-            height: 100
+            size_hint_x: 0.75
             canvas.before:
                 Color:
                     rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
@@ -69,3 +25,36 @@ BoxLayout:
                     size: self.size
                     pos: self.pos
                     radius: [10]
+            Camera:
+                id: cam
+                resolution: (1280, 720)
+                size_hint: 1, 1
+                pos_hint: {'x': 0, 'y': 0}
+                play: True
+
+        # Text Area
+        BoxLayout:
+            size_hint_x: 0.25
+            canvas.before:
+                Color:
+                    rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    radius: [10]
+            Button:
+                text: 'Capturar'
+                on_press: app.cameraImageCapture()
+
+        
+    # Voice BoxLayout
+    BoxLayout:
+        size_hint_y: None
+        height: 100
+        canvas.before:
+            Color:
+                rgba: 0.4, 0.4, 0.4, 0.4  # Color blanco para el fondo del área de contenido
+            RoundedRectangle:
+                size: self.size
+                pos: self.pos
+                radius: [10]

@@ -2,8 +2,9 @@
 #python -m pip install docutils pygments pypiwin32 kivy.deps.sdl2 kivy.deps.glew
 #python -m pip install kivy.deps.gstreamer
 #pip install kivy
+#pip install pylance
+#pip install Pillow
 
-import os
 import sys
 import cv2 as cv
 import numpy as np
@@ -44,10 +45,12 @@ class Alicia(App):
         texture = camera.texture
         size = texture.size
         pixels = texture.pixels
-        pilImg=Image.frombytes(mode='RGBA', size=size,data=pixels)
-        numpypicture=np.array(pilImg)
         
-        cv.imwrite("CLIENTVIEW/images/productImg.png", numpypicture)
+        
+        pilImg=Image.frombytes(mode='RGBA', size=size,data=pixels) # Create PIL Image from Kivy data
+        numpypicture=np.array(pilImg) # Convert PIL Image to a numpy array
+        numpypicture = cv.cvtColor(numpypicture, cv.COLOR_RGBA2BGR) # Pass Image RGBA to opencv BGR
+        cv.imwrite("CLIENTVIEW/images/productImg.png", numpypicture) # Save image in image folder
 
 
 if __name__ == '__main__':
