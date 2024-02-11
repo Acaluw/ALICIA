@@ -17,13 +17,13 @@ activeModel = threading.Event()
 # Method that listen for a keyword to activate listen() method
 def listenKeyWord():
     with sr.Microphone() as source:
-        print("...")
+        print("SpeechToText || Waiting for keyword")
         voiceRecog.adjust_for_ambient_noise(source, duration=1)
         audio = voiceRecog.listen(source)
 
     try:
         texto = voiceRecog.recognize_google(audio, language='es')
-        print(texto)
+        print(f'SpeechToText || Keyword: {texto}')
         if 'Alicia' in texto:
             return True
     except sr.UnknownValueError:
@@ -32,13 +32,13 @@ def listenKeyWord():
 # Method that listen for a current command
 def listen():
     with sr.Microphone() as source:
-        print("Command section...")
+        print("SpeechToText || Command section...")
         voiceRecog.adjust_for_ambient_noise(source, duration=1)
         audio = voiceRecog.listen(source)
 
     try:
         texto = voiceRecog.recognize_google(audio,language='es')
-        print("Command detected...")
+        print("SpeechToText || Command detected...")
         return texto.lower()
     except sr.UnknownValueError:
         return ""
@@ -53,25 +53,32 @@ def runSpeechModel():
                 tts.welcome()
         else:
             action = listen()
-
+            print(f'SpeechToText || Action: {action}')
             if 'prueba de sonido' in action: # Performs a sound test
                 activeBool = tts.soundTest()
-            elif 'reproduce' in action or ('pon' in action and 'alarma' not in action): # Plays a song request by user via youtube
-                print()
-            elif 'pon' in action and 'alarma' in action: # Set an alarm
-                print()
-            elif ('tiempo hace' in action or 'clima hace') and 'en' not in action: # Get the actual user place weather
-                print()
-            elif ('tiempo hace' in action or 'clima hace') and 'en' in action: # Get the place weather given by user
-                print()
-            elif 'hora es' in action and 'en' not in action: # Get the actual time of the user
-                print()
-            elif 'hora es' in action and 'en' not in action: # Get the actual time of a zone given by user
-                print()
-            elif ('sube' in action or 'subir' in action) and 'volumen' in action: # Turn volume up
-                print()
-            elif ('baja' in action or 'bajar' in action) and 'volumen' in action: # Turn volume down
-                print()
+            elif 'hora es' in action: # Get the actual time of the user
+                activeBool = tts.ActualTime()
+            elif 'día es hoy' in action: # Get the actual day
+                activeBool = tts.ActualDay()
+            elif ('volumen' in action or 'Volumen' in action) and 'al' in action: # Change volume value
+                volValue = int(action.split('al')[1].strip())
+                activeBool = tts.SetVolume(volValue)
+            elif 'reproduce' in action or 'pon' in action:
+                songName = ''
+                if 'reproduce' in action:
+                    songName = action.split('reproduce')[1].strip()
+                elif 'pon' in action:
+                    songName = action.split('reproduce')[1].strip()
+                activeBool = tts.playAudio(songName)
+            elif 'para' in action:
+                activeBool = tts.stopAudio()
+            elif 'pausa' in action:
+                activeBool = tts.pauseAudio()
+            elif 'continua' in action or 'reanuda' in action:
+                activeBool = tts.resumeAudio()
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 activeModel.set() # Send an advise to the Kivy's Interface Thread to close the app
+
+if __name__ == '__main__':
+    runSpeechModel()
