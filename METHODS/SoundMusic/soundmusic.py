@@ -2,10 +2,12 @@
 # pip install python-vlc
 from pytube import YouTube
 from pytube import Search
+import threading
 import time
 import vlc
 
 player = None
+thread = None
 
 def audioDownload(name):
 
@@ -25,19 +27,23 @@ def audioDownload(name):
     return fileDownload
 
 def audioPlay(filePath):
-    print(f'Sound&Music || PATH: {filePath}')
-    # Play audio
-    global player
-    player = vlc.MediaPlayer(filePath)
-    player.play()
+    global thread
+    def play():
+        print(f'Sound&Music || PATH: {filePath}')
+        # Play audio
+        global player
+        player = vlc.MediaPlayer(filePath)
+        player.play()
 
-    # Wait till audio finish
-    while player.get_state() != vlc.State.Playing:
-        time.sleep(0.1)
-    
-    audioLength = player.get_length() / 1000
-    print(f'Sound&Music || Music Length: {audioLength}')
-    time.sleep(audioLength)
+        # Wait till audio finish
+        while player.get_state() != vlc.State.Playing:
+            time.sleep(0.1)
+        
+        audioLength = player.get_length() / 1000
+        print(f'Sound&Music || Music Length: {audioLength}')
+        time.sleep(audioLength)
+    thread = threading.Thread(target=play)
+    thread.start()
 
 def audioPause():
     if player:
@@ -55,3 +61,5 @@ if __name__ == '__main__':
     testName = input('video search test: ')
     audioPath = audioDownload(testName)
     audioPlay(audioPath)
+    threadTest = input('Thread Test: ')
+    if (threadTest == 'stop'): audioStop()

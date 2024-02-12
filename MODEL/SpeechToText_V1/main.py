@@ -83,4 +83,7 @@ def runSpeechModel():
                 activeModel.set() # Send an advise to the Kivy's Interface Thread to close the app
 
 if __name__ == '__main__':
+    print('+------------------------------------+')
+    print('|  ALICIA v1.0                       |')
+    print('+------------------------------------+')
     runSpeechModel()
