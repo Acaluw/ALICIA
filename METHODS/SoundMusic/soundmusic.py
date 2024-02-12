@@ -1,3 +1,5 @@
+# pip install pytube
+# pip install python-vlc
 from pytube import YouTube
 from pytube import Search
 import time

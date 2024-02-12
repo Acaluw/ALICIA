@@ -1,3 +1,5 @@
+# pip install SpeechRecognition
+
 # Libs import
 import sys
 from pathlib import Path
@@ -63,18 +65,18 @@ def runSpeechModel():
             elif ('volumen' in action or 'Volumen' in action) and 'al' in action: # Change volume value
                 volValue = int(action.split('al')[1].strip())
                 activeBool = tts.SetVolume(volValue)
-            elif 'reproduce' in action or 'pon' in action:
+            elif 'reproduce' in action or 'pon' in action: # Play a song given by user
                 songName = ''
                 if 'reproduce' in action:
                     songName = action.split('reproduce')[1].strip()
                 elif 'pon' in action:
                     songName = action.split('reproduce')[1].strip()
                 activeBool = tts.playAudio(songName)
-            elif 'para' in action:
+            elif 'para' in action: # Stop actual song
                 activeBool = tts.stopAudio()
-            elif 'pausa' in action:
+            elif 'pausa' in action: # Pause actual song
                 activeBool = tts.pauseAudio()
-            elif 'continua' in action or 'reanuda' in action:
+            elif 'continua' in action or 'reanuda' in action: # Resume actual song
                 activeBool = tts.resumeAudio()
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()

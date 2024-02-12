@@ -1,3 +1,4 @@
+# pip install pyttsx3
 import sys
 from pathlib import Path
 import pyttsx3
@@ -15,67 +16,116 @@ rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-50)
 
 def soundTest():
-    print('TextToSpeech || SoundTest')
-    engine.say(lang.esp['test'])
-    engine.runAndWait()
-    engine.stop()
-    return False
+    try:
+        print('TextToSpeech || SoundTest')
+        engine.say(lang.esp['test'])
+        engine.runAndWait()
+        engine.stop()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def welcome():
     engine.say(lang.esp['welcome'])
     engine.runAndWait()
 
 def ActualTime():
-    print('TextToSpeech || ActualTime')
-    acTime = time.getActualTime()
-    engine.say(acTime)
-    engine.runAndWait()
-    return False
+    try:
+        print('TextToSpeech || ActualTime')
+        acTime = time.getActualTime()
+        engine.say(acTime)
+        engine.runAndWait()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def ActualDay():
-    print('TextToSpeech || ActualDay')
-    acDay = time.getActualDay()
-    engine.say(acDay)
-    engine.runAndWait()
-    return False
+    try:
+        print('TextToSpeech || ActualDay')
+        acDay = time.getActualDay()
+        engine.say(acDay)
+        engine.runAndWait()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def SetVolume(value):
-    print(f'TextToSpeech || SetVolume ({value})')
-    volumeControl.set_volume(value)
-    return False
+    try:
+        print(f'TextToSpeech || SetVolume ({value})')
+        volumeControl.set_volume(value)
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def playAudio(name):
-    print(f'TextToSpeech || PlayAudio ({name})')
-    engine.say(f'Reproduciendo {name}')
-    engine.runAndWait()
-    audioPath = soundmusic.audioDownload(name)
-    soundmusic.audioPlay(audioPath)
-    return False
+    try:
+        print(f'TextToSpeech || PlayAudio ({name})')
+        engine.say(f'Reproduciendo {name}')
+        engine.runAndWait()
+        audioPath = soundmusic.audioDownload(name)
+        soundmusic.audioPlay(audioPath)
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def stopAudio():
-    print(f'TextToSpeech || StopAudio')
-    soundmusic.audioStop()
-    return False
+    try:
+        print(f'TextToSpeech || StopAudio')
+        soundmusic.audioStop()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def pauseAudio():
-    print(f'TextToSpeech || PauseAudio')
-    soundmusic.audioPause()
-    return False
+    try:
+        print(f'TextToSpeech || PauseAudio')
+        soundmusic.audioPause()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def resumeAudio():
-    print(f'TextToSpeech || ResumeAudio')
-    soundmusic.audioResume()
-    return False
+    try:
+        print(f'TextToSpeech || ResumeAudio')
+        soundmusic.audioResume()
+        return False
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 def goodbye():
-    print('TextToSpeech || Goodbye')
-    engine.say(lang.esp['goodbye'])
-    engine.runAndWait()
-
-def cancion():
-    engine.say('Reproduciendo temazo...')
-    engine.runAndWait()
-    return False
+    try:
+        print('TextToSpeech || Goodbye')
+        engine.say(lang.esp['goodbye'])
+        engine.runAndWait()
+    except:
+        engine.say('Comando no disponible')
+        engine.runAndWait()
+        engine.stop()
+        return False
 
 if __name__ == "__main__":
     soundTest()
