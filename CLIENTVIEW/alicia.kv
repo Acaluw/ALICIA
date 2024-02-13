@@ -13,6 +13,7 @@ BoxLayout:
     BoxLayout:
         orientation: 'horizontal'
         spacing: 10
+        height: cam.height
 
         # Camera and Text BoxLayout
         BoxLayout:
@@ -24,6 +25,12 @@ BoxLayout:
                     size: self.size
                     pos: self.pos
                     radius: [10]
+            Camera:
+                id: cam
+                resolution: (1280, 720)
+                size_hint: 1, 1
+                pos_hint: {'x':0, 'y':0}
+                play: True
 
         # Text Area
         BoxLayout:
@@ -35,6 +42,9 @@ BoxLayout:
                     size: self.size
                     pos: self.pos
                     radius: [10]
+            Button:
+                text: 'Capturar'
+                on_press: app.cameraImgCapture()
 
         
     # Voice BoxLayout
