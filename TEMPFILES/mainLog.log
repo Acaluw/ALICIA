@@ -1,0 +1,113 @@
+2024-02-12 19:58:05,864 - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\Juan\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2024-02-12 19:58:05,864 - INFO - Using writeable comtypes cache directory: 'C:\Users\Juan\AppData\Local\Programs\Python\Python312\Lib\site-packages\comtypes\gen'
+2024-02-12 19:58:06,585 - INFO - SpeechToText || Waiting for keyword
+2024-02-12 19:59:38,393 - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\Juan\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2024-02-12 19:59:38,393 - INFO - Using writeable comtypes cache directory: 'C:\Users\Juan\AppData\Local\Programs\Python\Python312\Lib\site-packages\comtypes\gen'
+2024-02-12 19:59:39,100 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 16:58:39,700 - INFO - Imported existing <module 'comtypes.gen' from 'C:\\Users\\Juan\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2024-02-13 16:58:39,700 - INFO - Using writeable comtypes cache directory: 'C:\Users\Juan\AppData\Local\Programs\Python\Python312\Lib\site-packages\comtypes\gen'
+2024-02-13 16:58:40,705 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 16:58:45,798 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 16:58:48,829 - INFO - SpeechToText || Command section...
+2024-02-13 16:58:55,045 - INFO - SpeechToText || Command detected...
+2024-02-13 16:58:55,045 - INFO - SpeechToText || Action: reproduce bruno mars local
+2024-02-13 16:58:55,045 - INFO - TextToSpeech || PlayAudio (bruno mars local)
+2024-02-13 16:59:01,629 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 16:59:25,163 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 16:59:27,555 - INFO - SpeechToText || Command section...
+2024-02-13 16:59:32,536 - INFO - SpeechToText || Command detected...
+2024-02-13 16:59:32,536 - INFO - SpeechToText || Action: volumen al 10
+2024-02-13 16:59:32,536 - INFO - TextToSpeech || SetVolume (10)
+2024-02-13 16:59:32,837 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 16:59:43,790 - INFO - SpeechToText || Keyword: doña linda
+2024-02-13 16:59:44,050 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 16:59:49,830 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 16:59:52,225 - INFO - SpeechToText || Command section...
+2024-02-13 17:00:00,500 - INFO - SpeechToText || Action: 
+2024-02-13 17:00:00,775 - INFO - SpeechToText || Command section...
+2024-02-13 17:00:07,243 - INFO - SpeechToText || Command detected...
+2024-02-13 17:00:07,285 - INFO - SpeechToText || Action: para la canción
+2024-02-13 17:00:07,285 - INFO - TextToSpeech || StopAudio
+2024-02-13 17:00:07,545 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:00:13,995 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:00:16,608 - INFO - SpeechToText || Command section...
+2024-02-13 17:00:22,907 - INFO - SpeechToText || Command detected...
+2024-02-13 17:00:22,907 - INFO - SpeechToText || Action: reproduce maniac de conan gray
+2024-02-13 17:00:22,907 - INFO - TextToSpeech || PlayAudio (maniac de conan gray)
+2024-02-13 17:00:26,965 - WARNING - Unexpected renderer encountered.
+2024-02-13 17:00:26,965 - WARNING - Renderer name: dict_keys(['reelShelfRenderer'])
+2024-02-13 17:00:26,965 - WARNING - Search term: maniac de conan gray letra
+2024-02-13 17:00:26,965 - WARNING - Please open an issue at https://github.com/pytube/pytube/issues and provide this log output.
+2024-02-13 17:00:29,116 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:00:36,731 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:00:39,139 - INFO - SpeechToText || Command section...
+2024-02-13 17:00:42,559 - INFO - SpeechToText || Command detected...
+2024-02-13 17:00:42,561 - INFO - SpeechToText || Action: pausa la canción
+2024-02-13 17:00:42,561 - INFO - TextToSpeech || PauseAudio
+2024-02-13 17:00:42,801 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:00:47,503 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:00:50,091 - INFO - SpeechToText || Command section...
+2024-02-13 17:00:54,240 - INFO - SpeechToText || Command detected...
+2024-02-13 17:00:54,243 - INFO - SpeechToText || Action: continúa la canción
+2024-02-13 17:00:54,502 - INFO - SpeechToText || Command section...
+2024-02-13 17:01:04,076 - INFO - SpeechToText || Command detected...
+2024-02-13 17:01:04,076 - INFO - SpeechToText || Action: o reanuda la acción
+2024-02-13 17:01:04,076 - INFO - TextToSpeech || ResumeAudio
+2024-02-13 17:01:04,422 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:01:14,210 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:01:16,638 - INFO - SpeechToText || Command section...
+2024-02-13 17:01:19,697 - INFO - SpeechToText || Action: 
+2024-02-13 17:01:19,996 - INFO - SpeechToText || Command section...
+2024-02-13 17:01:24,654 - INFO - SpeechToText || Command detected...
+2024-02-13 17:01:24,654 - INFO - SpeechToText || Action: volumen al 8
+2024-02-13 17:01:24,654 - INFO - TextToSpeech || SetVolume (8)
+2024-02-13 17:01:24,957 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:02:19,946 - INFO - SpeechToText || Keyword: feliz
+2024-02-13 17:02:20,245 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:02:23,665 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:02:34,283 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:02:36,677 - INFO - SpeechToText || Command section...
+2024-02-13 17:02:39,707 - INFO - SpeechToText || Command detected...
+2024-02-13 17:02:39,707 - INFO - SpeechToText || Action: volumen al 1
+2024-02-13 17:02:39,707 - INFO - TextToSpeech || SetVolume (1)
+2024-02-13 17:02:40,002 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:02:45,137 - INFO - SpeechToText || Keyword: vale
+2024-02-13 17:02:45,414 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:02:51,587 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:02:53,986 - INFO - SpeechToText || Command section...
+2024-02-13 17:02:58,143 - INFO - SpeechToText || Command detected...
+2024-02-13 17:02:58,145 - INFO - SpeechToText || Action: volumen al 8
+2024-02-13 17:02:58,145 - INFO - TextToSpeech || SetVolume (8)
+2024-02-13 17:02:58,444 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:03:02,191 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:04:13,201 - INFO - SpeechToText || Keyword: oye Alicia oye Alicia
+2024-02-13 17:04:15,845 - INFO - SpeechToText || Command section...
+2024-02-13 17:04:21,289 - INFO - SpeechToText || Command detected...
+2024-02-13 17:04:21,293 - INFO - SpeechToText || Action: reproduce bruno mars lockout
+2024-02-13 17:04:21,293 - INFO - TextToSpeech || PlayAudio (bruno mars lockout)
+2024-02-13 17:04:25,461 - WARNING - Unexpected renderer encountered.
+2024-02-13 17:04:25,461 - WARNING - Renderer name: dict_keys(['reelShelfRenderer'])
+2024-02-13 17:04:25,461 - WARNING - Search term: bruno mars lockout letra
+2024-02-13 17:04:25,461 - WARNING - Please open an issue at https://github.com/pytube/pytube/issues and provide this log output.
+2024-02-13 17:04:25,461 - WARNING - Unexpected renderer encountered.
+2024-02-13 17:04:25,461 - WARNING - Renderer name: dict_keys(['reelShelfRenderer'])
+2024-02-13 17:04:25,461 - WARNING - Search term: bruno mars lockout letra
+2024-02-13 17:04:25,461 - WARNING - Please open an issue at https://github.com/pytube/pytube/issues and provide this log output.
+2024-02-13 17:04:27,736 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:04:39,823 - INFO - SpeechToText || Keyword: oye Alicia
+2024-02-13 17:04:42,212 - INFO - SpeechToText || Command section...
+2024-02-13 17:04:48,632 - INFO - SpeechToText || Command detected...
+2024-02-13 17:04:48,632 - INFO - SpeechToText || Action: reproduce lazy song de bruno mars
+2024-02-13 17:04:48,632 - INFO - TextToSpeech || PlayAudio (lazy song de bruno mars)
+2024-02-13 17:04:52,800 - WARNING - Unexpected renderer encountered.
+2024-02-13 17:04:52,800 - WARNING - Renderer name: dict_keys(['reelShelfRenderer'])
+2024-02-13 17:04:52,800 - WARNING - Search term: lazy song de bruno mars letra
+2024-02-13 17:04:52,805 - WARNING - Please open an issue at https://github.com/pytube/pytube/issues and provide this log output.
+2024-02-13 17:04:52,805 - WARNING - Unexpected renderer encountered.
+2024-02-13 17:04:52,805 - WARNING - Renderer name: dict_keys(['reelShelfRenderer'])
+2024-02-13 17:04:52,805 - WARNING - Search term: lazy song de bruno mars letra
+2024-02-13 17:04:52,805 - WARNING - Please open an issue at https://github.com/pytube/pytube/issues and provide this log output.
+2024-02-13 17:04:54,961 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:05:15,968 - INFO - SpeechToText || Keyword: embajador puesto que este jueves
+2024-02-13 17:05:16,272 - INFO - SpeechToText || Waiting for keyword
+2024-02-13 17:06:20,757 - INFO - SpeechToText || Waiting for keyword

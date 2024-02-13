@@ -41,7 +41,6 @@ class Alicia(App):
     
     # Methods that get an image capture from the camera
     def cameraImgCapture(self):
-        print('Entro')
         camera = self.root.ids.cam
         texture = camera.texture
         size = texture.size
@@ -50,7 +49,7 @@ class Alicia(App):
         pilImg=Image.frombytes(mode='RGBA', size=size,data=pixels) # Create PIL Image from Kivy data
         numpypicture=np.array(pilImg) # Convert PIL Image to a numpy array
         numpypicture = cv.cvtColor(numpypicture, cv.COLOR_RGBA2BGR) # Pass Image RGBA to opencv BGR
-        cv.imwrite("CLIENTVIEW/images/productImg.png", numpypicture) # Save image in image folder
+        cv.imwrite("TEMPFILES/images/productImg.png", numpypicture) # Save image in image folder
 
 
 if __name__ == '__main__':
