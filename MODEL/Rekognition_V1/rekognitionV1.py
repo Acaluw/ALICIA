@@ -1,4 +1,6 @@
 #!/usr/bin/python3
+
+# pip install boto3
 import boto3
 import rekogCreds as creds
 
