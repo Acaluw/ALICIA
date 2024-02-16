@@ -87,7 +87,7 @@ def runSpeechModel():
             elif 'continua' in action or 'reanuda' in action: # Resume actual song
                 activeBool = tts.resumeAudio()
             elif ('escanea' in action or 'busca' in action) and 'código' in action: # Search for Qr Code in cam
-                activeBool = False
+                activeBool = tts.getQrCode()
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 activeModel.set() # Send an advise to the Kivy's Interface Thread to close the app

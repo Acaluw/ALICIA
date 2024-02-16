@@ -121,6 +121,8 @@ def getQrCode():
     try:
         print(f'TextToSpeech || GetQrCode')
         logging.info("TextToSpeech || GetQrCode")
+        engine.say("Aquí tienes el contenido del código qr")
+        engine.runAndWait()
         qrcode.qrSearch()
         return False
     except Exception:
