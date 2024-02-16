@@ -7,6 +7,6 @@ region = 'us-east-1'
 bucket = 'aliciabucketv1'
 
 # Credenciales de AWS
-aws_access_key_id = 'ASIA2FISX6YKJPLRHM33'
-aws_secret_access_key = 'Rm7emCJPj4u8W5X1UMAmXg4vAzp1GwUzbXkTc7hK'
-aws_session_token = 'FwoGZXIvYXdzELL//////////wEaDJwpUi2Ew5SxlutTeCLGATQykdAzfEfVfVXAxmRLV04Vksi6QUp9TZ72PmYfSAvwNtXJWyPh0s+3Ns63Xwcw0IF2ppTwLS0EtyI/l9NmRkQNHayLxSYgXKFPqfpzTxh4wDtZqmw7Atu96Fjrp+P7IIpSISMN370IiWxLQVJLN8WWIyQV1XMgu8BTqPlU1wV+vYSZ9jyLdamNYbpawVRSI1CTooAdUs9Mj2Lq/aH0zbSZriRj+z4+hEt4K+VZmcYaA5huHxU9U43HeLyk09a1KrzXzHGU0yiEsq6uBjItQJWTrXU7Fr1c38IU1lNwtDDCf9uOhEYCgwybseaagfWlol8tBu1TFGF8eVKq'
+aws_access_key_id = 'ASIA2FISX6YKH4I6X7E4'
+aws_secret_access_key = 'RZS2M1TUgefbXF3CiNV3Rs4o4K+3wXu7p2Y6hPdp'
+aws_session_token = 'FwoGZXIvYXdzEM7//////////wEaDC/7SuxjCkt0fPqRNiLGAWsYqxq+FyVgYyQUFE+HqJwJsXPWC2oS58AeMvt7c9A93peyqfeaaxqfVItHiWWhF9r+AIU3I/84F4+MekxrHzBjpDE1suuKrcPq5FFftih3qxKM/K9dFZrUdisejJc2RjjTfzbESGJVB9oTwcAbVQ9mUXz3zyjPHJdgP3lwonqRs9I8Yf6C4BNYjhkW05jL/acJCn/pJpJy0lW89/H0xE4gyriGT1nFqZmw8EKLAvFar8IS0q2c6ccyXyNi+bI15huRzwgDpiiLwrSuBjIt/RgUJuK29+Cfg5jKE70BEGVJwz0UPArbpoqwwcAjSu0Zbqrk1Qxx3BoDBE5n'

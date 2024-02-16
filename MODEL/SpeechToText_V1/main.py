@@ -80,12 +80,14 @@ def runSpeechModel():
                 elif 'pon' in action:
                     songName = action.split('reproduce')[1].strip()
                 activeBool = tts.playAudio(songName)
-            elif 'para' in action: # Stop actual song
+            elif ('para' in action or 'quita' in action) and 'cancion' in action: # Stop actual song
                 activeBool = tts.stopAudio()
             elif 'pausa' in action: # Pause actual song
                 activeBool = tts.pauseAudio()
             elif 'continua' in action or 'reanuda' in action: # Resume actual song
                 activeBool = tts.resumeAudio()
+            elif ('escanea' in action or 'busca' in action) and 'código' in action: # Search for Qr Code in cam
+                activeBool = False
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 activeModel.set() # Send an advise to the Kivy's Interface Thread to close the app

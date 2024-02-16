@@ -2,40 +2,20 @@
 import cv2
 import webbrowser
 
-# Variable booleana para controlar si el enlace ya se ha abierto
-enlace_abierto = False
-
 # Función para abrir una página web en el navegador
-def abrir_pagina_web(url):
+def openUrl(url):
     webbrowser.open(url)
 
-# Inicializarmos la captura de la cámara
-capture = cv2.VideoCapture(0)
-
-# Bucle principal para capturar imágenes de la cámara
-while capture.isOpened():
-    # Leemos un nuevo fotograma de la cámara
-    ret, frame = capture.read()
-    
+def qrSearch():
     # Detectamos y decodificamos si hay un posible código QR en el fotograma
+    frame = cv2.imread('TEMPFILES/images/productImg.png')
     qrDetector = cv2.QRCodeDetector()
     data, bbox, rectifiedImage = qrDetector.detectAndDecode(frame)
-    
     # Si se detecta un código QR
-    if len(data) > 0 and not enlace_abierto:
+    if len(data) > 0:
         print(f'Dato: {data}')
         # Abrir la página web correspondiente al dato del código QR
-        abrir_pagina_web(data)
-        enlace_abierto = True  # Marcamos el enlace como abierto
-        cv2.imshow('webCam', rectifiedImage)
-    else: 
-        # Si no se detecta un código QR o el enlace ya se ha abierto, mostrar el fotograma original
-        cv2.imshow('webCam', frame) 
-    
-    # Esperar hasta que se presione la tecla 'Esc' para salir del bucle
-    if cv2.waitKey(1) == 27:  # 27 corresponde al código ASCII de la tecla 'Esc'
-        break
+        openUrl(data)
 
-# Liberamos la captura de la cámara y cerrar todas las ventanas
-capture.release()
-cv2.destroyAllWindows()
+if __name__ == '__main__':
+    qrSearch()
