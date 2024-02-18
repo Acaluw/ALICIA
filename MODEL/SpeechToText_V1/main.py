@@ -16,9 +16,11 @@ from TextToSpeech_V1 import main as tts
 voiceRecog = sr.Recognizer()
 activeBool = False
 camCapture = False
-camCaptureChanged = Event()
 speechStatus = ""
+guiStatus = True
+camCaptureChanged = Event()
 speechStatusChanged = Event()
+guiStatusChanged = Event()
 
 # Method that listen for a keyword to activate listen() method
 def listenKeyWord():
@@ -57,6 +59,7 @@ def runSpeechModel():
     global activeBool
     global camCapture
     global speechStatus
+    global guiStatus
     while True:
         if not activeBool:
             if listenKeyWord():
@@ -96,7 +99,8 @@ def runSpeechModel():
                 activeBool = tts.getQrCode()
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
-                # Close Tkinter gui
+                guiStatus = False
+                guiStatusChanged.set() # Close Tkinter gui
 
 if __name__ == '__main__':
     print('+------------------------------------+')

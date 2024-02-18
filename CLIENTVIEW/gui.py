@@ -66,7 +66,7 @@ def SpeechToText_Thread(): # Start SpeechToText model in a separated Thread
 
 def capture_Thread():
     while True:
-        if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set():
+        if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set() or stt.guiStatusChanged.is_set():
             if stt.camCaptureChanged.is_set():
                 # stt.camCaptureChanged.wait() # Event to take cam frame
                 print('GUI || CamCaptureChanged')
@@ -76,6 +76,10 @@ def capture_Thread():
                 print(f'GUI || SpeechStatusChanged: {stt.speechStatus}')
                 canvas.itemconfig(status, text=stt.speechStatus)
                 stt.speechStatusChanged.clear()
+            if stt.guiStatusChanged.is_set():
+                print(f'GUI || GuiStatusChanged: {stt.guiStatus}')
+                if stt.guiStatus == False:
+                    window.destroy()
         else:
             time.sleep(0.01)
 
@@ -136,7 +140,7 @@ image_4 = canvas.create_image(
 
 
 canvas.create_text(
-    568.0,
+    575.0,
     471.0,
     anchor="nw",
     text="Status",
@@ -145,7 +149,7 @@ canvas.create_text(
 )
 
 status = canvas.create_text(
-    531.0,
+    565.0,
     503.0,
     anchor="nw",
     text="Waiting",
@@ -154,7 +158,7 @@ status = canvas.create_text(
 )
 
 canvas.create_text(
-    570.0,
+    575.0,
     65.0,
     anchor="nw",
     text="Media",
@@ -163,8 +167,8 @@ canvas.create_text(
 )
 
 canvas.create_text(
-    522.0,
-    123.0,
+    535.0,
+    125.0,
     anchor="nw",
     text="Nothing played",
     fill="#000000",
