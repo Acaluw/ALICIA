@@ -10,6 +10,7 @@ from METHODS.Time import time
 from METHODS.VolumeControl import volumeControl
 from METHODS.SoundMusic import soundmusic
 from METHODS.QRcode import qrcode
+from METHODS.GoogleSearch import googleSearch as gs
 
 engine = pyttsx3.init()
 
@@ -114,6 +115,26 @@ def getQrCode():
         return False
     except Exception:
         print(f"TextToSpeech || GetQrCode: {Exception}")
+        return False
+
+def googleSearch(key):
+    try:
+        print(f'TextToSpeech || GoogleSearch')
+        searchRequest = key.split("busca")[1].strip()
+        engine.say(f"Buscando la solicitud: {searchRequest}")
+        engine.runAndWait()
+        gs.googleSearch(searchRequest)
+    except Exception:
+        print(f"TextToSpeech || GoogleSearch: {Exception}")
+        return False
+    
+def notFound():
+    try:
+        print(f'TextToSpeech || NotFound')
+        engine.say(f"Perdona, no te he entendido")
+        engine.runAndWait()
+    except Exception:
+        print(f"TextToSpeech || NotFound: {Exception}")
         return False
 
 def goodbye():

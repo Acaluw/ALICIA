@@ -97,6 +97,8 @@ def runSpeechModel():
                 camCaptureChanged.set()
                 camCapture = False
                 activeBool = tts.getQrCode()
+            elif 'busca' in action: # Search product via voice request
+                activeBool = tts.googleSearch(action.lower())
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 guiStatus = False
