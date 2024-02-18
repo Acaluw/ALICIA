@@ -18,13 +18,16 @@ activeBool = False
 camCapture = False
 speechStatus = ""
 guiStatus = True
+logMessage = ""
 camCaptureChanged = Event()
 speechStatusChanged = Event()
 guiStatusChanged = Event()
+logMessageChanged = Event()
 
 # Method that listen for a keyword to activate listen() method
 def listenKeyWord():
     global speechStatus
+    global logMessage
     with sr.Microphone() as source:
         print("SpeechToText || Waiting for keyword")
         speechStatus = "Waiting"
@@ -35,6 +38,8 @@ def listenKeyWord():
     try:
         texto = voiceRecog.recognize_google(audio, language='es')
         print(f'SpeechToText || Keyword: {texto}')
+        logMessage = texto
+        logMessageChanged.set()
         if 'Alicia' in texto:
             return True
     except sr.UnknownValueError:
@@ -60,6 +65,7 @@ def runSpeechModel():
     global camCapture
     global speechStatus
     global guiStatus
+    global logMessage
     while True:
         if not activeBool:
             if listenKeyWord():
@@ -70,6 +76,8 @@ def runSpeechModel():
         else:
             action = listen()
             print(f'SpeechToText || Action: {action}')
+            logMessage = action
+            logMessageChanged.set()
             if 'prueba de sonido' in action: # Performs a sound test
                 activeBool = tts.soundTest()
             elif 'hora es' in action: # Get the actual time of the user
