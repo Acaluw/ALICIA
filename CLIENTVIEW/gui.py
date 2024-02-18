@@ -68,7 +68,6 @@ def capture_Thread():
     while True:
         if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set() or stt.guiStatusChanged.is_set():
             if stt.camCaptureChanged.is_set():
-                # stt.camCaptureChanged.wait() # Event to take cam frame
                 print('GUI || CamCaptureChanged')
                 frameCapture()
                 stt.camCaptureChanged.clear()
