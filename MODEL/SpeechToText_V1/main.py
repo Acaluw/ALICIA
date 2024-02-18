@@ -17,11 +17,16 @@ voiceRecog = sr.Recognizer()
 activeBool = False
 camCapture = False
 camCaptureChanged = Event()
+speechStatus = ""
+speechStatusChanged = Event()
 
 # Method that listen for a keyword to activate listen() method
 def listenKeyWord():
+    global speechStatus
     with sr.Microphone() as source:
         print("SpeechToText || Waiting for keyword")
+        speechStatus = "Waiting"
+        speechStatusChanged.set()
         voiceRecog.adjust_for_ambient_noise(source, duration=1)
         audio = voiceRecog.listen(source)
 
@@ -51,11 +56,14 @@ def listen():
 def runSpeechModel():
     global activeBool
     global camCapture
+    global speechStatus
     while True:
         if not activeBool:
             if listenKeyWord():
                 activeBool = True
                 tts.welcome()
+                speechStatus = "Listening"
+                speechStatusChanged.set()
         else:
             action = listen()
             print(f'SpeechToText || Action: {action}')

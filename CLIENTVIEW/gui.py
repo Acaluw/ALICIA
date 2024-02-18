@@ -11,6 +11,7 @@ import tkinter as tk
 import cv2
 import sys
 import os
+import time
 import threading
 from PIL import Image, ImageTk
 
@@ -65,9 +66,22 @@ def SpeechToText_Thread(): # Start SpeechToText model in a separated Thread
 
 def capture_Thread():
     while True:
-        stt.camCaptureChanged.wait()
-        frameCapture()
-        stt.camCaptureChanged.clear()
+        if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set():
+            if stt.camCaptureChanged.is_set():
+                # stt.camCaptureChanged.wait() # Event to take cam frame
+                print('GUI || CamCaptureChanged')
+                frameCapture()
+                stt.camCaptureChanged.clear()
+            if stt.speechStatusChanged.is_set():
+                print(f'GUI || SpeechStatusChanged: {stt.speechStatus}')
+                canvas.itemconfig(status, text=stt.speechStatus)
+                stt.speechStatusChanged.clear()
+        else:
+            time.sleep(0.01)
+
+# def status_Thread():
+#     if stt.speechStatusChanged.wait() # Event to change speech status
+            
 
 canvas = tk.Canvas(
     window,
@@ -130,11 +144,11 @@ canvas.create_text(
     font=("MontserratRoman SemiBold", 20 * -1)
 )
 
-canvas.create_text(
+status = canvas.create_text(
     531.0,
     503.0,
     anchor="nw",
-    text="Listening",
+    text="Waiting",
     fill="#000000",
     font=("MontserratRoman Light", 20 * -1)
 )
