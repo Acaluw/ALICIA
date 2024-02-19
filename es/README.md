@@ -40,6 +40,11 @@ pip install SpeechRecognition
 pip install pyttsx3
 ```
 
+### Modelo de análisis de productos (AWS)
+```bash
+pip install boto3
+```
+
 ### Métodos generales
 ```bash
 pip install pytube
