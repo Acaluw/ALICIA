@@ -3,32 +3,32 @@
 import requests
 import webbrowser
 import googleSearch_creds as cred
-# Api de google
+# Google API
 API_key = cred.api_key
 motor_busqueda_key = cred.motor_busqueda_key
 
 def googleSearch(keyword):
-    # URL base de la API de Google Custom Search
+    # Basic URL of Google Custom Search API
     url = "https://www.googleapis.com/customsearch/v1"
-    # Creamos un diccionario "parametros", que contiene los parámetros de la solicitud HTTP
+    # Create a dictionary "parametros", which contains the parameters of the HTTP request
     parametros = {
-        # Consulta de búsqueda
+        # Search query
         'q' : keyword,
-        # Clave API
+        # API Key
         'key' : API_key,
-        # Clave del motor de búsqueda
+        # Search engine key
         'cx' : motor_busqueda_key
     }
-    # Realizamos una solicitud HTTP GET a la URL de la API de Google Custom Search con los parámetros especificados
+    # Make an HTTP GET request to the Google Custom Search API URL with the specified parameters
     response = requests.get(url, params = parametros)
-    # Convertimos la respuesta JSON de la API en un diccionario
+    # Convert the JSON response from the API into a dictionary
     resultados = response.json()
-    # Comprobamos si hay elementos de búsqueda en los resultados
+    # Check if there are search items in the results
     if 'items' in resultados:
-        # Extraemos le primer enlace
+        # Extract the first link
         enlace = resultados['items'][0]['link']
         print(resultados['items'][0]['link'])
-        # Abrimos el enlace en el navegador web
+        # Open the link in the web browser
         webbrowser.open(enlace)
 
 if __name__ == '__main__':
