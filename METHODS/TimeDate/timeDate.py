@@ -75,10 +75,9 @@ def obtener_hora(frase):
         # If the word "hora" is not in the sentence, do nothing
         return False
     
-"""
-if __name__ == '__main__':
+"""if __name__ == '__main__':
     peticion_busqueda = input("De que país quieres saber la hora: ")
-    obtener_capital(peticion_busqueda)"""
+    obtener_hora(peticion_busqueda)"""
 
 frase = input("Introduce una frase: ")
 if "fecha" in frase.lower() or "dia es hoy" in frase.lower():
