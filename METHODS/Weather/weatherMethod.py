@@ -8,7 +8,7 @@ from geopy.geocoders import Nominatim
 
 def traducir_texto(texto, destino='en'):
     translator = Translator()
-    # Traducimos el texto al idioma destino
+    # Translate the text to the language we want
     traduccion = translator.translate(texto, dest=destino)
     return traduccion.text 
 
@@ -18,19 +18,19 @@ def kelvin_a_celsius(kelvin):
 
 def obtener_pais_local():
     try:
-        # Obtenemos la dirección IP del usuario
+        # Get the user's IP address
         ip_info = requests.get('https://ipinfo.io/json')
         ip_data = ip_info.json()
 
         # Obtenemos las siglas del país desde la información de la IP
         codigo_pais = ip_data.get('country', 'Desconocido')
 
-        # Obtenenemos el nombre completo del país utilizando geolocalización inversa, utilizando las coordenadas anteriores
+        # Get the full name of the country using reverse geolocation, using the previous coordinates
         url_geolocalizacion = f'https://nominatim.openstreetmap.org/reverse?format=json&lat={ip_data["loc"].split(",")[0]}&lon={ip_data["loc"].split(",")[1]}'
-        # Convertimos la respuesta en un dicionario
+        # Convert the response into a dictionary
         respuesta_geolocalizacion = requests.get(url_geolocalizacion)
         datos_geolocalizacion = respuesta_geolocalizacion.json()
-        # Extraemos el nombre completo del país
+        # Extract the full name of the country
         nombre_pais = datos_geolocalizacion.get('address', {}).get('country', 'Desconocido')
 
         return nombre_pais
@@ -39,29 +39,29 @@ def obtener_pais_local():
         return 'Desconocido'
 
 def obtener_capital(pais):
-    # Abrimos el archivo json con la información de países y capitales
+    # Open the json file with countries and capitals information
     with open(r"paises_capitales.json", "r", encoding="utf-8") as archivo_json:
-        # Leemos el contenido y lo cargamos en un diccionario
+        # Read the content and load it into a dictionary
         data = json.load(archivo_json)
-        # Accedemos a la lista de países
+        # Access the list of countries
         paises = data["paises"] 
-        # Traducimos el nombre del pais a Inglés, para que se encuentre en el mismo idioma que en el json
+        # Translate the country name to English, so it is in the same language as in the json
         pais_contexto = "Traduce la siguiente ubicacion: " + pais
         pais_contexto = traducir_texto(pais_contexto, "en")
         pais_name = pais_contexto.split(":", 1)[1].strip()
-        # Obtenemos la primera letra del nombre del país y la conviertmos a mayúsculas.
+        # Get the first letter of the country name and convert it to uppercase.
         letra_inicial = pais_name[0].upper()
-        # Filtramos la lista de países para obtener solo los que comienzan con la misma letra
+        # Filter the list of countries to get only those starting with the same letter
         paises_filtrados = [item for item in paises if item["countryName"].startswith(letra_inicial)]
-        # Iteramos sobre los países filtrados
+        # Iterate over the filtered countries
         for item in paises_filtrados: 
-            # Obtenemos el nombre del país
+            # Get the country name
             country_name = item["countryName"]
-            # Vemos si coincide el nombre del país con los del archivo
+            # Check if the country name matches with the name in the file
             if country_name == pais_name:
-                # Si es asi, obtenemos el nombre de la capital del país
+                # If so, get the name of the country's capital
                 capital = item["capital"]
-                # Y se traduce al español
+                # And translate it to Spanish
                 capital_contexto = "Translate this location: " + capital
                 capital_contexto = traducir_texto(capital_contexto, "es")
                 capital_name = capital_contexto.split(":", 1)[1].strip()
@@ -69,56 +69,56 @@ def obtener_capital(pais):
                 return capital_name
     return False
 
-# Función para obtener los datos del clima a partir de una URL y procesarlos.
+# Function to get weather data from a URL and process it
 def obtener_datos_clima(url):
-    # Realizamos una solicitud GET a la URL de la API del clima y convertimos la respuesta a formato JSON
+    # Make a GET request to the weather API URL and convert the response to JSON format
     datos_clima = requests.get(url).json()
-    # Verificamos si los datos de la respuesta contienen las claves 'main' y 'weather'
+    # Check if the response data contains the keys 'main' and 'weather'
     if 'main' in datos_clima and 'weather' in datos_clima:
-        # Extraemos la temperatura en Kelvin de la sección 'main' de los datos del clima
+        # Extract the temperature in Kelvin from the 'main' section of the weather data
         temp_kelvin = datos_clima['main']['temp']
-        # Convertimos la temperatura de Kelvin a Celsius
+        # Convert temperature from Kelvin to Celsius
         temp_celsius = kelvin_a_celsius(temp_kelvin)
-        # Extraemos la humedad
+        # Extract humidity
         humedad = datos_clima['main']['humidity']
-        # Extraemos la descripción del clima de la primera entrada en la lista 'weather'
+        # Extract weather description from the first entry in the 'weather' list
         descripcion = datos_clima['weather'][0]['description']
-        # Corrección de traducción si la descripción es "overcast clouds"
+        # Translation correction if the description is "overcast clouds"
         if descripcion == "overcast clouds":
             descripcion = "nublado"
-        # Retornamos los datos del clima en una tupla (temp_celsius, humedad, descripcion)
+        # Return weather data in a tuple (temp_celsius, humidity, description)
         return temp_celsius, humedad, descripcion
     else:
-        # Si faltan datos en la respuesta de la API, retornamos una tupla de valores nulos
+        # If data is missing in the API response, return a tuple of null values
         return None, None, None
 
 def obtener_clima(frase):
+    # Check if the words "tiempo" or "clima" are in the sentence
     if "tiempo" in frase.lower() or "clima" in frase.lower():
-        # Usamos esto para saber si es un país o ciudad real
+        # Use this to know if it's a real country or city
         geolocator = Nominatim(user_agent="obtener_clima_app")
         BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
         API_KEY = "ee8c71bbe4bdc1dfea0d3611a656c853"
-        # Verificamos si la frase contiene la palabra "en"
+        # Check if the sentence contains the word "en"
         if "en" in frase.lower():
-            # Extraemos la ciudad después de la palabra "en"
+            # Extract the city after the word "in"
             ciudad = frase.split("en", 1)[1].strip()
-            # Aquí comprobamos si existe el lugar
+            # Check if it's a valid location, if the place exists
             location = geolocator.geocode(ciudad)
-            # Comprobamos si es una localización válida
             if location:
-                # Traducimos el nombre de la localización a inglés, que es el idioma de la API
+                # Translate the location name to English, which is the language of the API
                 ciudad_contexto = "Traduce la siguiente ubicacion: " + ciudad
                 ciudad_contexto_en = traducir_texto(ciudad_contexto, "en")
                 ciudad_Ingles = ciudad_contexto_en.split(":", 1)[1].strip()
-                # Comprobamos si la localización tiene una capital, por si se introduce una capital
+                # Check if the location has a capital, in case a capital or other place is entered
                 comprobacion_capital = obtener_capital(ciudad_Ingles)
-                # Si no tiene una capital, se busca esa localización
+                # If it doesn't have a capital, we will look for that location
                 if comprobacion_capital == False:
-                    # Construimos la URL para obtener los datos del clima
+                    # Build the URL to get weather data
                     url = f"{BASE_URL}appid={API_KEY}&q={ciudad_Ingles}"
-                    # Obtenemos los datos del clima utilizando la función obtener_datos_clima
+                    # Get weather data using the obtener_datos_clima function
                     temp_celsius, humedad, descripcion = obtener_datos_clima(url)
-                    # Verificamos si se obtuvieron los datos del clima correctamente
+                    # Check if weather data was obtained successfully
                     if temp_celsius is not None:
                         mensaje_clima = f'El clima en {ciudad.capitalize()} es {traducir_texto(descripcion, "es")} con una humedad de {humedad}% y una temperatura de {round(temp_celsius, 2)} grados Celsius.'
                         return mensaje_clima
@@ -126,15 +126,15 @@ def obtener_clima(frase):
                         mensaje_error = f'No se encontraron datos para {ciudad}.'
                         return mensaje_error
                 else:
-                    # Traducimos el nombre de la localización a inglés, que es el idioma de la API
+                    # Translate the location name to English, which is the language of the API
                     capital_contexto = "Traduce la siguiente ubicacion: " + comprobacion_capital
                     capital_contexto = traducir_texto(capital_contexto, "en")
                     capital_contexto = capital_contexto.split(":", 1)[1].strip()
-                    # Construimos la URL para obtener los datos del clima, pero en este caso con la capital
+                    # Build the URL to get weather data, but in this case with th capital 
                     url = f"{BASE_URL}appid={API_KEY}&q={capital_contexto}"
-                    # Obtenemos los datos del clima utilizando la función obtener_datos_clima
+                    # Get weather data using the obtener_datos_clima function
                     temp_celsius, humedad, descripcion = obtener_datos_clima(url)
-                    # Verificamos si se obtuvieron los datos del clima correctamente
+                    # Check if weather data was obtained successfully
                     if temp_celsius is not None:
                         mensaje_clima = f'El clima en {ciudad.capitalize()}, {comprobacion_capital} es {traducir_texto(descripcion, "es")} con una humedad de {humedad}% y una temperatura de {round(temp_celsius, 2)} grados Celsius.'
                         return mensaje_clima
@@ -145,15 +145,15 @@ def obtener_clima(frase):
                 mensaje_error = f'No se encontraron datos o no existe {ciudad}'
                 return mensaje_error
         else:
-            # Si no se ha espedificado ningún lugar concreto se cogera el país local
+            # If no specific location is provided, the local country will be taken
             ciudad = obtener_pais_local()
-            # Obtenemos la capital del país local
+            # Get the capital of the local country
             ciudad_local = obtener_capital(ciudad)
-            # Construimos la URL para obtener los datos del clima con esa localización
+            # Build the URL to get weather data, but in this case with th capital 
             url = f"{BASE_URL}appid={API_KEY}&q={ciudad_local}"
-            # Obtenemos los datos del clima utilizando la función obtener_datos_clima
+            # Get weather data using the obtener_datos_clima function
             temp_celsius, humedad, descripcion = obtener_datos_clima(url)
-            # Verificamos si se obtuvieron los datos del clima correctamente
+            # Check if weather data was obtained successfully
             if temp_celsius is not None:
                 mensaje_clima = f'El clima en {ciudad.capitalize()}, {ciudad_local} es {traducir_texto(descripcion, "es")} con una humedad de {humedad}% y una temperatura de {round(temp_celsius, 2)} grados Celsius.'
                 return mensaje_clima
@@ -168,4 +168,6 @@ frase = input("Ingrese una frase: ")
 resultado = obtener_clima(frase)
 print(resultado)
 
-# if __name__ == '__main__':
+"""if __name__ == '__main__':
+    peticion_busqueda = input("De que país quieres saber la capital: ")
+    obtener_clima(peticion_busqueda)"""
