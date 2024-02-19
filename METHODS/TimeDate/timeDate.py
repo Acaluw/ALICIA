@@ -1,5 +1,6 @@
 #https://pypi.org/project/pytz/
 #https://www.youtube.com/watch?v=lUe_-WnrPUE
+# Importing libraries
 import pytz
 from datetime import datetime
 import pycountry
@@ -7,53 +8,55 @@ from googletrans import Translator
 
 def traducir_texto(texto, destino='en'):
     translator = Translator()
-    # Traducimos el texto al idioma destino
+    # Translate the text to the language we want
     traduccion = translator.translate(texto, dest=destino)
     return traduccion.text 
 
 def obtener_codigo_iso(nombre_pais):
     try:
         # https://pypi.org/project/pycountry/
-        # Buscar el país por su nombre con "pycountry" y "search_fuzzy" busca coincidencias aproximadas para manejar posibles errores tipográficos o abreviaturas.
+        # Search for the country by its name with "pycountry", and "search_fuzzy" looks 
+        # for approximate matches to handle possible typos or abbreviations.
         pais = pycountry.countries.search_fuzzy(nombre_pais)
-        # Devolver el código ISO 3166-1 alfa-2 del primer país encontrado
+        # Return the ISO 3166-1 alpha-2 code of the first found country
         return pais[0].alpha_2 #type: ignore
     except LookupError:
         return None
 
 def obtener_fecha(frase):
-    # Verificamos si la frase contiene palabras clave
+    # Check if the sentence contains keywords
     if "fecha" in frase.lower() or "dia es hoy" in frase.lower():
         fecha_actual = datetime.now()
-        # Obtenemos el nombre del mes y el día
+        # Get the name of the month and the day
         nombre_mes = fecha_actual.strftime("%B")
         dia = fecha_actual.strftime("%d")
-        # Obtenemos el año
+        # Get the year
         anio = fecha_actual.strftime("%Y")
         return f"{dia} de {traducir_texto(nombre_mes, 'es')} de {anio}"
     else:
         return False
 
-def obtener_hora(frase):
-    # Verificamos si la palabra "hora" está en la frase
+def obtener_hora(frase): 
+    # Check if the word "hora" is in the sentence
     if "hora" in frase.lower():
-        # Verificamos si la frase contiene la palabra "en"
+        # Check if the sentence contains the word "en"
         if "en" in frase.lower():
-            # Extraemos la ciudad después de la palabra "en", para poder sacar la localización indicada
+            # Extract the city after the word "en", to be able to achieve the indicated location
             nombre_pais = frase.split("en", 1)[1].strip()
-            # Traducimos el nombre del pais a Inglés, para que se encuentre en el mismo idioma que en el json
+            # Translate the country name to English, so it is in the same language as in the JSON
             pais_contexto = "Traduce la siguiente ubicacion: " + nombre_pais
             pais_contexto = traducir_texto(pais_contexto, "en")
             pais_nombre = pais_contexto.split(":", 1)[1].strip()
-            # Obtenemos el codigo iso del pais
+            # Get the ISO code of the country
             codigo_iso = obtener_codigo_iso(pais_nombre)
             if codigo_iso:
                 try:
-                    # Obtener la zona horaria del país
+                    # Get the time zone of the country
                     zona_horaria = pytz.country_timezones[codigo_iso.upper()][0]
                     print(zona_horaria)
-                    # Obtener la hora actual en esa zona horaria
+                    # Get the current time in that time zone
                     hora_actual = datetime.now(pytz.timezone(zona_horaria))
+                    # Format the time
                     hora_formateada = hora_actual.strftime("%H:%M:%S")
                     mensaje_hora = f"La hora actual en {nombre_pais.capitalize()} es {hora_formateada}"
                     return mensaje_hora
@@ -62,15 +65,20 @@ def obtener_hora(frase):
             else:
                 return "País no encontrado"
         else:
-            #Si no se proporciona una ciudad, mostrar la hora local del dispositivo
+            # If no city is provided, show the local time of the device, "local time"
             hora_local = datetime.now()
+            # Format the time
             hora_local_formateada = hora_local.strftime("%H:%M:%S")
             mensaje_hora_local = f"La hora actual local es {hora_local_formateada}"
-            # Devolvemos el resultado
             return mensaje_hora_local
     else:
-        #Si la palabra "hora" no está en la frase, no hacer nada
+        # If the word "hora" is not in the sentence, do nothing
         return False
+    
+"""
+if __name__ == '__main__':
+    peticion_busqueda = input("De que país quieres saber la hora: ")
+    obtener_capital(peticion_busqueda)"""
 
 frase = input("Introduce una frase: ")
 if "fecha" in frase.lower() or "dia es hoy" in frase.lower():
