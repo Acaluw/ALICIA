@@ -11,6 +11,7 @@ from METHODS.VolumeControl import volumeControl
 from METHODS.SoundMusic import soundmusic
 from METHODS.QRcode import qrcode
 from METHODS.GoogleSearch import googleSearch as gs
+from METHODS.FindPlaces import findPlaces
 
 engine = pyttsx3.init()
 
@@ -124,8 +125,21 @@ def googleSearch(key):
         engine.say(f"Buscando la solicitud: {searchRequest}")
         engine.runAndWait()
         gs.googleSearch(searchRequest)
+        return False
     except Exception:
         print(f"TextToSpeech || GoogleSearch: {Exception}")
+        return False
+
+def findPlace(zone, type):
+    try:
+        print(f'TextToSpeech || FindPlace {zone}/{type}')
+        engine.say(f"Buscando {type} cercanos en {zone}")
+        engine.runAndWait()
+        lat, long = findPlaces.obtener_latitud_longitud(zone)
+        findPlaces.buscar_restaurantes_cercanos(latitud=lat, longitud=long, tipo=type)
+        return False
+    except Exception:
+        print(f"TextToSpeech || FindPlace: {Exception}")
         return False
     
 def notFound():

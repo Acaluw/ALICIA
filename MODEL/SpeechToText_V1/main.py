@@ -107,10 +107,43 @@ def runSpeechModel():
                 activeBool = tts.getQrCode()
             elif 'busca' in action: # Search product via voice request
                 activeBool = tts.googleSearch(action.lower())
+            elif ('encuentra' in action) and ('cercanos en' in action or ('en' in action and 'cercanos' not in action) or 'por' in action): # Search nearby places
+                if 'cercanos en' in action:
+                    petiSt = action.find('encuentra')
+                    petiEnd = action.find('cercanos')
+                    petiSt2 = action.find('en')
+                    if petiSt != -1 and petiEnd != -1 and petiSt2 != -1:
+                        placeType = action[petiSt:petiEnd].strip()
+                        placeZone = action[petiSt2:].strip()
+                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
+                elif 'en' in action and 'cercanos' not in action and 'por' not in action:
+                    petiSt = action.find('encuentra')
+                    petiEnd = action.find('en')
+                    if petiSt != -1 and petiEnd != -1:
+                        placeType = action[petiSt:petiEnd].strip()
+                        placeZone = action[petiEnd:].strip()
+                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
+                elif 'cercanos por' in action:
+                    petiSt = action.find('encuentra')
+                    petiEnd = action.find('cercanos')
+                    petiSt2 = action.find('por')
+                    if petiSt != -1 and petiEnd != -1 and petiSt2 != -1:
+                        placeType = action[petiSt:petiEnd].strip()
+                        placeZone = action[petiSt2:].strip()
+                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
+                elif 'por' in action and 'cercanos' not in action and 'en' not in action:
+                    petiSt = action.find('encuentra')
+                    petiEnd = action.find('por')
+                    if petiSt != -1 and petiEnd != -1:
+                        placeType = action[petiSt:petiEnd].strip()
+                        placeZone = action[petiEnd:].strip()
+                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 guiStatus = False
                 guiStatusChanged.set() # Close Tkinter gui
+            else:
+                activeBool = tts.notFound()
 
 if __name__ == '__main__':
     print('+------------------------------------+')

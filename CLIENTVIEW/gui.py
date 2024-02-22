@@ -26,101 +26,107 @@ ASSETS_PATH = OUTPUT_PATH / Path(r"assets/frame0")
 def relative_to_assets(path: str) -> Path:
     return ASSETS_PATH / Path(path)
 
-window = tk.Tk() # Tkinter windows Init
-window.geometry("700x550")
-window.configure(bg = "#FFFFFF")
+class App:
+    def __init__(self):
+        self.window = tk.Tk() # Tkinter windows Init
+        self.window.title("ALICIA v1.0")
+        self.window.geometry("700x550")
+        self.window.configure(bg = "#FFFFFF")
 
-cap = cv2.VideoCapture(0) # VideoCapture Init (CV2)
+        self.cap = cv2.VideoCapture(0) # VideoCapture Init (CV2)
+        self.setup_ui()
 
-def cameraOn():
-    _, frame = cap.read()
-    frame = cv2.flip(frame, 1)  # Flip horizontally
-    frame_resized = cv2.resize(frame, (480, 353))
-    cv2image = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGBA)  # BGR (CV2 default) to RGBA
-    img = Image.fromarray(cv2image)  # OpenCv Image to PIL Image
-    imgtk = ImageTk.PhotoImage(image=img)  # PIL Image to PhotoImage (Allowing Tkinter using this frame)
-    canvas.create_image(16, 56, anchor=tk.NW, image=imgtk)  # Show image in canvas
-    canvas.imgtk = imgtk
-    canvas.after(10, cameraOn)
+    def cameraOn(self):
+        _, frame = self.cap.read()
+        frame = cv2.flip(frame, 1)  # Flip horizontally
+        frame_resized = cv2.resize(frame, (480, 353))
+        cv2image = cv2.cvtColor(frame_resized, cv2.COLOR_BGR2RGBA)  # BGR (CV2 default) to RGBA
+        img = Image.fromarray(cv2image)  # OpenCv Image to PIL Image
+        imgtk = ImageTk.PhotoImage(image=img)  # PIL Image to PhotoImage (Allowing Tkinter using this frame)
+        self.canvas.create_image(16, 56, anchor=tk.NW, image=imgtk)  # Show image in canvas
+        self.canvas.imgtk = imgtk
+        self.canvas.after(10, self.cameraOn)
 
-def frameCapture():
-    imgPath = 'TEMPFILES/images'
-    if not os.path.exists(imgPath):
-        os.makedirs(imgPath)
+    def frameCapture(self):
+        imgPath = 'TEMPFILES/images'
+        if not os.path.exists(imgPath):
+            os.makedirs(imgPath)
 
-    ret, frame = cap.read() # Capture actual camera frame
-    if ret:
-        frame = cv2.flip(frame, 1) # Flip frame to match preview
-        
-        # Save frame as PNG
-        filename = os.path.join(imgPath, 'productImg.png')
-        cv2.imwrite(filename, frame)
-        print('GUI || FrameCapture: File Saved')
-    else:
-        print('GUI || FrameCapture: Cannot capture camera frame')
-
-def SpeechToText_Thread(): # Start SpeechToText model in a separated Thread
-    speechThread = threading.Thread(target=stt.runSpeechModel)
-    speechThread.daemon = True # True -> Close Thread when closing the client window
-    speechThread.start()
-
-def capture_Thread():
-    while True:
-        if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set() or stt.guiStatusChanged.is_set():
-            if stt.camCaptureChanged.is_set():
-                print('GUI || CamCaptureChanged')
-                frameCapture()
-                stt.camCaptureChanged.clear()
-            if stt.speechStatusChanged.is_set():
-                print(f'GUI || SpeechStatusChanged: {stt.speechStatus}')
-                canvas.itemconfig(status, text=stt.speechStatus)
-                stt.speechStatusChanged.clear()
-            if stt.logMessageChanged.is_set():
-                print(f'GUI || LogMessageChanged: {stt.logMessage}')
-                canvas.itemconfig(log, text='+==> '+stt.logMessage)
-                stt.logMessageChanged.clear()
-            if stt.guiStatusChanged.is_set():
-                print(f'GUI || GuiStatusChanged: {stt.guiStatus}')
-                if stt.guiStatus == False:
-                    window.destroy()
+        ret, frame = self.cap.read() # Capture actual camera frame
+        if ret:
+            frame = cv2.flip(frame, 1) # Flip frame to match preview
+            
+            # Save frame as PNG
+            filename = os.path.join(imgPath, 'productImg.png')
+            cv2.imwrite(filename, frame)
+            print('GUI || FrameCapture: File Saved')
         else:
-            time.sleep(0.01)
+            print('GUI || FrameCapture: Cannot capture camera frame')
 
-canvas = tk.Canvas( window, bg = "#FFFFFF", height = 550, width = 700, bd = 0, highlightthickness = 0, relief = "ridge" )
+    def SpeechToText_Thread(self): # Start SpeechToText model in a separated Thread
+        speechThread = threading.Thread(target=stt.runSpeechModel)
+        speechThread.daemon = True # True -> Close Thread when closing the client window
+        speechThread.start()
 
-canvas.place(x = 0, y = 0)
-canvas.create_rectangle( 0.0, 0.0, 700.0, 40.0, fill="#BFD6EB", outline="")
+    def capture_Thread(self):
+        while True:
+            if stt.camCaptureChanged.is_set() or stt.speechStatusChanged.is_set() or stt.guiStatusChanged.is_set():
+                if stt.camCaptureChanged.is_set():
+                    print('GUI || CamCaptureChanged')
+                    self.frameCapture()
+                    stt.camCaptureChanged.clear()
+                if stt.speechStatusChanged.is_set():
+                    print(f'GUI || SpeechStatusChanged: {stt.speechStatus}')
+                    self.canvas.itemconfig(self.status, text=stt.speechStatus)
+                    stt.speechStatusChanged.clear()
+                if stt.logMessageChanged.is_set():
+                    print(f'GUI || LogMessageChanged: {stt.logMessage}')
+                    self.canvas.itemconfig(self.log, text='+==> '+stt.logMessage)
+                    stt.logMessageChanged.clear()
+                if stt.guiStatusChanged.is_set():
+                    print(f'GUI || GuiStatusChanged: {stt.guiStatus}')
+                    if stt.guiStatus == False:
+                        self.window.destroy()
+            else:
+                time.sleep(0.01)
+    
+    def setup_ui(self):
+        self.canvas = tk.Canvas( self.window, bg = "#FFFFFF", height = 550, width = 700, bd = 0, highlightthickness = 0, relief = "ridge" )
 
-image_image_1 = tk.PhotoImage( file=relative_to_assets("image_1.png") )
-image_1 = canvas.create_image( 601.0, 114.0, image=image_image_1 )
+        self.canvas.place(x = 0, y = 0)
+        self.canvas.create_rectangle( 0.0, 0.0, 700.0, 40.0, fill="#BFD6EB", outline="")
 
-image_image_2 = tk.PhotoImage( file=relative_to_assets("image_2.png") )
-image_2 = canvas.create_image( 601.0, 502.0, image=image_image_2 )
+        self.image_image_1 = tk.PhotoImage( file=relative_to_assets("image_1.png") )
+        image_1 = self.canvas.create_image( 601.0, 114.0, image=self.image_image_1 )
 
-image_image_3 = tk.PhotoImage( file=relative_to_assets("image_3.png") )
-image_3 = canvas.create_image( 601.0, 319.0, image=image_image_3 )
+        self.image_image_2 = tk.PhotoImage( file=relative_to_assets("image_2.png") )
+        image_2 = self.canvas.create_image( 601.0, 502.0, image=self.image_image_2 )
 
-image_image_4 = tk.PhotoImage( file=relative_to_assets("image_4.png") )
-image_4 = canvas.create_image( 256.0, 480.0, image=image_image_4 )
+        self.image_image_3 = tk.PhotoImage( file=relative_to_assets("image_3.png") )
+        image_3 = self.canvas.create_image( 601.0, 319.0, image=self.image_image_3 )
 
-canvas.create_text( 575.0, 471.0, anchor="nw", text="Status", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
+        self.image_image_4 = tk.PhotoImage( file=relative_to_assets("image_4.png") )
+        image_4 = self.canvas.create_image( 256.0, 480.0, image=self.image_image_4 )
 
-status = canvas.create_text( 565.0, 503.0, anchor="nw", text="Waiting", fill="#000000", font=("MontserratRoman Light", 20 * -1) )
+        self.canvas.create_text( 575.0, 471.0, anchor="nw", text="Status", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
 
-canvas.create_text( 575.0, 65.0, anchor="nw", text="Media", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
+        self.status = self.canvas.create_text( 565.0, 503.0, anchor="nw", text="Waiting", fill="#000000", font=("MontserratRoman Light", 20 * -1) )
 
-canvas.create_text( 535.0, 125.0, anchor="nw", text="Nothing played", fill="#000000", font=("MontserratRoman Light", 20 * -1) )
+        self.canvas.create_text( 575.0, 65.0, anchor="nw", text="Media", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
 
-canvas.create_text( 240.0, 430.0, anchor="nw", text="Log", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
+        self.canvas.create_text( 535.0, 125.0, anchor="nw", text="Nothing played", fill="#000000", font=("MontserratRoman Light", 20 * -1) )
 
-log = canvas.create_text( 25.0, 470.0, anchor="nw", text="", fill="#000000", font=("MontserratRoman Light", 15 * -1) )
+        self.canvas.create_text( 240.0, 430.0, anchor="nw", text="Log", fill="#000000", font=("MontserratRoman SemiBold", 20 * -1) )
 
-cameraOn() # Cam Init
-SpeechToText_Thread() # SpeechToText Thread Init
+        self.log = self.canvas.create_text( 25.0, 470.0, anchor="nw", text="", fill="#000000", font=("MontserratRoman Light", 15 * -1) )
 
-listener_thread = threading.Thread(target=capture_Thread)
-listener_thread.daemon = True
-listener_thread.start()
+    def run(self):
+        self.cameraOn() # Cam Init
+        self.SpeechToText_Thread() # SpeechToText Thread Init
 
-window.resizable(False, False)
-window.mainloop()
+        self.listener_thread = threading.Thread(target=self.capture_Thread)
+        self.listener_thread.daemon = True
+        self.listener_thread.start()
+
+        self.window.resizable(False, False)
+        self.window.mainloop()

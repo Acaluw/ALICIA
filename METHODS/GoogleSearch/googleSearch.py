@@ -2,10 +2,9 @@
 #https://www.youtube.com/watch?v=TddYMNVV14g&t=886s
 import requests
 import webbrowser
-import googleSearch_creds as cred
 # Google API
-API_key = cred.api_key
-motor_busqueda_key = cred.motor_busqueda_key
+API_key = "AIzaSyCJduRdM7spHTEtxo2lb4CdvrbsClpZkls"
+motor_busqueda_key = "b78f092cc4ad449f4"
 
 def googleSearch(keyword):
     # Basic URL of Google Custom Search API
