@@ -51,6 +51,9 @@ pip install pytube
 pip install python-vlc
 pip install pycaw
 pip install requests
+pip install googletrans
+pip install geopy
+pip install geocoder
 ```
 
 Como complemento, se deberá instalar vlc en el equipo y tener este visible desde las variables de entorno. Puedes obtener la última versión de VLC en el siguiente [enlace.](https://www.videolan.org/vlc/index.es.html)
