@@ -39,10 +39,13 @@ def welcome():
     except Exception:
         print(f"TextToSpeech || Welcome: {Exception}")
 
-def ActualTime():
+def ActualTime(input=""):
     try:
         print('TextToSpeech || ActualTime')
-        acTime = time.getActualTime()
+        if input == "":
+            acTime = time.getActualTime()
+        else:
+            acTime = time.getHour(input)
         engine.say(acTime)
         engine.runAndWait()
         return False
