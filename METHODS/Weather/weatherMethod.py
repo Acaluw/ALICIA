@@ -1,5 +1,4 @@
-# pip install requests
-# pip install googletrans==4.0.0-rc1
+# pip install googletrans
 # pip install requests
 
 # Importar librerias
@@ -9,8 +8,6 @@ import requests
 from googletrans import Translator
 # pip install geopy
 from geopy.geocoders import Nominatim
-# Import credentials file
-import cred_weather as cred
 
 def traducir_texto(texto, destino='en'):
     translator = Translator()
@@ -104,7 +101,7 @@ def obtener_clima(frase):
         # Use this to know if it's a real country or city
         geolocator = Nominatim(user_agent="obtener_clima_app")
         BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
-        API_KEY = cred.api_key
+        API_KEY = "ee8c71bbe4bdc1dfea0d3611a656c853"
         # Check if the sentence contains the word "en"
         if "en" in frase.lower():
             # Extract the city after the word "in"
