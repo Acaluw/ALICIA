@@ -10,6 +10,8 @@ from xml.etree import ElementTree as ET
 from datetime import datetime
 import socket
 
+# Documentation: https://pypi.org/project/SpeechRecognition/
+# https://realpython.com/python-speech-recognition/
 
 # Making TextToSpeech/main.py visible for this file
 root_path = Path(__file__).resolve().parents[1]

@@ -3,6 +3,8 @@ import sys
 from pathlib import Path
 import pyttsx3
 
+# Documentation: https://pyttsx3.readthedocs.io/en/latest/
+
 root_path = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_path))
 from LANGUAGES import main as lang
