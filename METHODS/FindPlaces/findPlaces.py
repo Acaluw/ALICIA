@@ -1,20 +1,26 @@
 # pip install requests
 # pip install geopy
 # pip install geocoder
-
+# Importing libraries
 import requests
 import geocoder
 from geopy.geocoders import Nominatim
 
 def buscar_place_cercanos(latitud, longitud, tipo = "", radio = 10000, limite=10):
+    # Search the "busqueda_tipo" function for the user's request
     tipo = busqueda_tipo(tipo)
+    # Google Places API Key
     api_key = "AIzaSyCpJ8LYkRE8KYw6GKJ1p4Q_CZH0Ct95iHA"
+    # Build URL for API request
     url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitud},{longitud}&rankby=distance&type={tipo}&key={api_key}"
+    # Make GET request to API
     response = requests.get(url)
+    # Convert response to JSON format
     datos = response.json()
-    
+    # Check if response contains results
     if 'results' in datos:
         places = datos['results']
+        # Iterate over found places and display their names and addresses
         for i, place in enumerate(places[:limite]):
             nombre = place['name']
             direccion = place['vicinity']
@@ -22,6 +28,7 @@ def buscar_place_cercanos(latitud, longitud, tipo = "", radio = 10000, limite=10
     else:
         print(f"Methods || FindPlaces: No se encontraron {tipo} cercanos.")
 
+# Function to map place types to types accepted by the API
 def busqueda_tipo(frase):
     tipos_disponibles = {
         "restaurante": "restaurant",
@@ -53,7 +60,7 @@ def busqueda_tipo(frase):
         "alojamiento": "lodging",
         "hotel": "lodging"
     }
-    
+    # Search for type equivalence provided in the dictionary
     for palabra, tipo in tipos_disponibles.items():
         if palabra in frase.lower():
             return tipo
@@ -62,9 +69,11 @@ def busqueda_tipo(frase):
 
 def obtener_latitud_longitud(input):
     try:
+        # Initialize geolocator
         geolocator = Nominatim(user_agent="geoapiExercises")
+        # Get location provided 
         location = geolocator.geocode(input)
-        
+        # Check if it is valid location 
         if location:
             latitud = location.latitude
             longitud = location.longitude
