@@ -80,9 +80,9 @@ def runSpeechModel():
             logMessageChanged.set()
             if 'prueba de sonido' in action: # Performs a sound test
                 activeBool = tts.soundTest()
-            elif 'hora es' in action: # Get the actual time of the user
+            elif 'hora es' in action: # Get the current time of the user
                 activeBool = tts.ActualTime()
-            elif 'día es hoy' in action: # Get the actual day
+            elif 'día es hoy' in action: # Get the current day
                 activeBool = tts.ActualDay()
             elif ('volumen' in action or 'Volumen' in action) and 'al' in action: # Change volume value
                 volValue = int(action.split('al')[1].strip())
