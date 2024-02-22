@@ -138,6 +138,12 @@ def runSpeechModel():
                         placeType = action[petiSt:petiEnd].strip()
                         placeZone = action[petiEnd:].strip()
                         activeBool = tts.findPlace(zone=placeZone, type=placeType)
+            elif ('tiempo' in action or 'clima' in action) and 'en' in action: # Gets weather of a place specified by user (only country)
+                activeBool = tts.weatherControl(action)
+            elif 'capital' in action and 'de' in action: # Gets country's capital
+                petiSt = action.find('de')
+                country = action[petiSt:].strip()
+                activeBool = tts.capitalCountry(country=country)
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 guiStatus = False

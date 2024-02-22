@@ -12,6 +12,8 @@ from METHODS.SoundMusic import soundmusic
 from METHODS.QRcode import qrcode
 from METHODS.GoogleSearch import googleSearch as gs
 from METHODS.FindPlaces import findPlaces
+from METHODS.CapitalCountry import capital_country
+from METHODS.Weather import weatherMethod
 
 engine = pyttsx3.init()
 
@@ -140,6 +142,30 @@ def findPlace(zone, type):
         return False
     except Exception:
         print(f"TextToSpeech || FindPlace: {Exception}")
+        return False
+    
+def capitalCountry(country):
+    try:
+        print(f'TextToSpeech || CapitalCountry')
+        engine.say(f"Buscando la capital de {country}")
+        engine.runAndWait()
+        res = capital_country.obtener_capital(country)
+        engine.say(f"La capital de {country} es: {res}")
+        engine.runAndWait()
+        return False
+    except Exception:
+        print(f"TextToSpeech || CapitalCountry: {Exception}")
+        return False
+    
+def weatherControl(input):
+    try:
+        print(f'TextToSpeech || WeatherControl')
+        res = weatherMethod.obtener_clima(input)
+        engine.say(res)
+        engine.runAndWait()
+        return False
+    except Exception:
+        print(f"TextToSpeech || WeatherControl: {Exception}")
         return False
     
 def notFound():

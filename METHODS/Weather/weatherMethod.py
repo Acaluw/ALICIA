@@ -1,3 +1,7 @@
+# pip install requests
+# pip install googletrans==4.0.0-rc1
+# pip install requests
+
 # Importar librerias
 import json
 import requests
@@ -42,7 +46,7 @@ def obtener_pais_local():
 
 def obtener_capital(pais):
     # Open the json file with countries and capitals information
-    with open(r"paises_capitales.json", "r", encoding="utf-8") as archivo_json:
+    with open(r"TEMPFILES/paises_capitales.json", "r", encoding="utf-8") as archivo_json:
         # Read the content and load it into a dictionary
         data = json.load(archivo_json)
         # Access the list of countries
@@ -165,11 +169,7 @@ def obtener_clima(frase):
     else:
         return False
 
-
-frase = input("Ingrese una frase: ")
-resultado = obtener_clima(frase)
-print(resultado)
-
-"""if __name__ == '__main__':
+if __name__ == '__main__':
     peticion_busqueda = input("De que país quieres saber la capital: ")
-    obtener_clima(peticion_busqueda)"""
+    res = obtener_clima(peticion_busqueda)
+    print(res)

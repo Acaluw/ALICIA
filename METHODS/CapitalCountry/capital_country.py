@@ -10,7 +10,7 @@ def traducir_texto(texto, destino='en'):
 
 def obtener_capital(pais):
     # Open the json file with countries and capitals information
-    with open(r"paises_capitales.json", "r", encoding="utf-8") as archivo_json:
+    with open(r"TEMPFILES/paises_capitales.json", "r", encoding="utf-8") as archivo_json:
         # Read the content and load it into a dictionary
         data = json.load(archivo_json)
         # Access the list of countries
@@ -38,11 +38,9 @@ def obtener_capital(pais):
                 
                 return capital_name
     return "País no encontrado"
-"""
+
+
 if __name__ == '__main__':
     peticion_busqueda = input("De que país quieres saber la capital: ")
-    obtener_capital(peticion_busqueda)"""
-
-nombre_pais = input("Ingrese el nombre de un país: ")
-capital = obtener_capital(nombre_pais)
-print(f"La capital de {nombre_pais} es: {capital}")
+    capital = obtener_capital(peticion_busqueda)
+    print(f"La capital de {peticion_busqueda} es: {capital}")
