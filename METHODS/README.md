@@ -7,7 +7,7 @@ pip install pytube
 pip install python-vlc
 pip install pycaw
 pip install requests
-pip install googletrans
+pip install googletrans==4.0.0-rc1
 pip install geopy
 pip install geocoder
 pip install pycountry
