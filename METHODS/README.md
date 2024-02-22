@@ -38,7 +38,7 @@ Básicamente, si se encuentra un código QR válido, se imprime el dato decodifi
 
 ### SoundMusic
 
-El fichero SoundMusic recopila toda la lógica referente a reproducir sonidos desde el asistente. Este recibe un input a buscar (se le asigna letra/lyrics para un audio más legible), lo descarga en la carpeta TEMPFILES (no se le da un formato para evitar fichero corrupto) y, por último, utilizamos la biblioteca vlc para reproducir dicho audio. Esta biblioteca inicia un hilo independiente del programa principal para evitar que la interfaz o el modelo speech se quede bloqueado. Por último, cabe destacar que tenemos las opciones de poder pausar, reanudar y parar el audio en todo momento.
+El fichero SoundMusic recopila toda la lógica referente a reproducir sonidos desde el asistente. Este recibe un input a buscar (se le asigna letra/lyrics para un audio más legible), lo descarga en la carpeta TEMPFILES (no se le da un formato para evitar fichero corrupto) y, por último, utilizamos la biblioteca vlc para reproducir dicho audio (se le asigna el tiempo concreto de duración para evitar sonido vacío). Esta biblioteca inicia un hilo independiente del programa principal para evitar que la interfaz o el modelo speech se quede bloqueado. Por último, cabe destacar que tenemos las opciones de poder pausar, reanudar y parar el audio en todo momento.
 
 ### Time
 
