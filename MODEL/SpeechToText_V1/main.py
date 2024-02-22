@@ -138,41 +138,20 @@ def runSpeechModel():
                 activeBool = tts.googleSearch(action.lower())
             elif ('encuentra' in action) and ('cercanos en' in action or ('en' in action and 'cercanos' not in action) or 'por' in action): # Search nearby places
                 if 'cercanos en' in action:
-                    petiSt = action.find('encuentra')
-                    petiEnd = action.find('cercanos')
-                    petiSt2 = action.find('en')
-                    if petiSt != -1 and petiEnd != -1 and petiSt2 != -1:
-                        placeType = action[petiSt:petiEnd].strip()
-                        placeZone = action[petiSt2:].strip()
-                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
-                elif 'en' in action and 'cercanos' not in action and 'por' not in action:
-                    petiSt = action.find('encuentra')
-                    petiEnd = action.find('en')
-                    if petiSt != -1 and petiEnd != -1:
-                        placeType = action[petiSt:petiEnd].strip()
-                        placeZone = action[petiEnd:].strip()
-                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
+                    petiSt = action.split('encuentra')[1].split("cercanos")[0].strip()
+                    petiSt2 = action.split('cercanos en')[1].strip()
+                    activeBool = tts.findPlace(zone=petiSt2, type=petiSt)
                 elif 'cercanos por' in action:
-                    petiSt = action.find('encuentra')
-                    petiEnd = action.find('cercanos')
-                    petiSt2 = action.find('por')
-                    if petiSt != -1 and petiEnd != -1 and petiSt2 != -1:
-                        placeType = action[petiSt:petiEnd].strip()
-                        placeZone = action[petiSt2:].strip()
-                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
-                elif 'por' in action and 'cercanos' not in action and 'en' not in action:
-                    petiSt = action.find('encuentra')
-                    petiEnd = action.find('por')
-                    if petiSt != -1 and petiEnd != -1:
-                        placeType = action[petiSt:petiEnd].strip()
-                        placeZone = action[petiEnd:].strip()
-                        activeBool = tts.findPlace(zone=placeZone, type=placeType)
+                    petiSt = action.split('encuentra')[1].split("cercanos")[0].strip()
+                    petiSt2 = action.split('cercanos por')[1].strip()
+                    print(f'tipo {petiSt} y zona {petiSt2}')
+                    activeBool = tts.findPlace(zone=petiSt2, type=petiSt)
             elif ('tiempo' in action or 'clima' in action) and 'en' in action: # Gets weather of a place specified by user (only country)
-                activeBool = tts.weatherControl(action)
+                 activeBool = tts.weatherControl(action)
             elif 'capital' in action and 'de' in action: # Gets country's capital
-                petiSt = action.find('de')
-                country = action[petiSt:].strip()
-                activeBool = tts.capitalCountry(country=country)
+                 petiSt = action.find('de')
+                 country = action.split("de")[1].strip()
+                 activeBool = tts.capitalCountry(country=country)
             elif 'hasta luego' in action: # Close app
                 tts.goodbye()
                 guiStatus = False
