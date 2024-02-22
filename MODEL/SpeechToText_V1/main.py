@@ -2,10 +2,14 @@
 
 # Libs import
 import sys
-import time
 from threading import Event
 from pathlib import Path
 import speech_recognition as sr
+import os
+from xml.etree import ElementTree as ET
+from datetime import datetime
+import socket
+
 
 # Making TextToSpeech/main.py visible for this file
 root_path = Path(__file__).resolve().parents[1]
@@ -66,6 +70,24 @@ def runSpeechModel():
     global speechStatus
     global guiStatus
     global logMessage
+
+    # THIS VARIABLE IS ONLY TO TEST METADATA XML GENERATION !!!!
+    ip_address = socket.gethostbyname(socket.gethostname()) # Gets user ip
+    if not os.path.exists('TEMPFILES/log.xml'):
+        os.makedirs(os.path.dirname('TEMPFILES/log.xml'), exist_ok=True) # Create the directory if it does not exist
+        root = ET.Element("root") # Create the root element
+        tree = ET.ElementTree(root)
+        tree.write('TEMPFILES/log.xml')
+    else:
+        tree = ET.parse('TEMPFILES/log.xml') # Load the existing XML file
+        root = tree.getroot()
+
+    accion = ET.SubElement(root, "sessionlog")
+    accion.set("ip", ip_address)
+    fecha = ET.SubElement(accion, "fecha")
+    fecha.text = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
     while True:
         if not activeBool:
             if listenKeyWord():
@@ -76,6 +98,9 @@ def runSpeechModel():
         else:
             action = listen()
             print(f'SpeechToText || Action: {action}')
+            comando = ET.SubElement(accion, "comando")
+            comando.text = action
+            tree.write('TEMPFILES/log.xml')
             logMessage = action
             logMessageChanged.set()
             if 'prueba de sonido' in action: # Performs a sound test
