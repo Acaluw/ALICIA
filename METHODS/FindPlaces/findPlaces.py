@@ -6,7 +6,7 @@ import requests
 import geocoder
 from geopy.geocoders import Nominatim
 
-def buscar_restaurantes_cercanos(latitud, longitud, tipo = "", radio = 10000, limite=10):
+def buscar_place_cercanos(latitud, longitud, tipo = "", radio = 10000, limite=10):
     tipo = busqueda_tipo(tipo)
     api_key = "AIzaSyCpJ8LYkRE8KYw6GKJ1p4Q_CZH0Ct95iHA"
     url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitud},{longitud}&rankby=distance&type={tipo}&key={api_key}"
@@ -14,13 +14,13 @@ def buscar_restaurantes_cercanos(latitud, longitud, tipo = "", radio = 10000, li
     datos = response.json()
     
     if 'results' in datos:
-        restaurantes = datos['results']
-        for i, restaurante in enumerate(restaurantes[:limite]):
-            nombre = restaurante['name']
-            direccion = restaurante['vicinity']
+        places = datos['results']
+        for i, place in enumerate(places[:limite]):
+            nombre = place['name']
+            direccion = place['vicinity']
             print(f"{i+1}. Nombre: {nombre}, Dirección: {direccion}")
     else:
-        print(f"Methods || FindPlaces: No se encontraron restaurantes cercanos.")
+        print(f"Methods || FindPlaces: No se encontraron {tipo} cercanos.")
 
 def busqueda_tipo(frase):
     tipos_disponibles = {
@@ -80,4 +80,4 @@ if __name__ == "__main__":
     zona = input("Introduce la zona: ")
     tipo = input("Introduce tipo: ")
     latitud, longitud = obtener_latitud_longitud(zona)
-    buscar_restaurantes_cercanos(latitud, longitud, tipo=tipo)
+    buscar_place_cercanos(latitud, longitud, tipo=tipo)

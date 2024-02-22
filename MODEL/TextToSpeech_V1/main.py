@@ -143,7 +143,7 @@ def findPlace(zone, type):
         engine.say(f"Buscando {type} cercanos en {zone}")
         engine.runAndWait()
         lat, long = findPlaces.obtener_latitud_longitud(zone)
-        findPlaces.buscar_restaurantes_cercanos(latitud=lat, longitud=long, tipo=type)
+        findPlaces.buscar_place_cercanos(latitud=lat, longitud=long, tipo=type)
         return False
     except Exception:
         print(f"TextToSpeech || FindPlace: {Exception}")
