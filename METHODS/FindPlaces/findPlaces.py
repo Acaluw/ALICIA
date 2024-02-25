@@ -4,13 +4,18 @@
 # Importing libraries
 import requests
 import geocoder
+import os
 from geopy.geocoders import Nominatim
+from dotenv import load_dotenv
+
+load_dotenv()
+PLACESKEY =  os.getenv("PLACESKEY")
 
 def buscar_place_cercanos(latitud, longitud, tipo = "", radio = 10000, limite=10):
     # Search the "busqueda_tipo" function for the user's request
     tipo = busqueda_tipo(tipo)
     # Google Places API Key
-    api_key = "AIzaSyBb_5tPJCwcaa-UOD2ooxbpT7wrgDIH22s"
+    api_key = PLACESKEY
     # Build URL for API request
     url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={latitud},{longitud}&rankby=distance&type={tipo}&key={api_key}"
     # Make GET request to API

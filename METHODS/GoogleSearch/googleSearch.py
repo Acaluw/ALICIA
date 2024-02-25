@@ -2,9 +2,13 @@
 #https://www.youtube.com/watch?v=TddYMNVV14g&t=886s
 import requests
 import webbrowser
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 # Google API
-API_key = "AIzaSyCJduRdM7spHTEtxo2lb4CdvrbsClpZkls"
-motor_busqueda_key = "b78f092cc4ad449f4"
+API_key = os.getenv("GOOGLEKEY")
+motor_busqueda_key = os.getenv("MOTORKEY")
 
 def googleSearch(keyword):
     # Basic URL of Google Custom Search API
