@@ -10,6 +10,7 @@ load_dotenv()
 API_key = os.getenv("GOOGLEKEY")
 motor_busqueda_key = os.getenv("MOTORKEY")
 
+# googleSearch(keyword: string) -> Performs a google search for the keyword value
 def googleSearch(keyword):
     # Basic URL of Google Custom Search API
     url = "https://www.googleapis.com/customsearch/v1"

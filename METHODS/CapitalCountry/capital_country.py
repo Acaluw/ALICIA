@@ -2,12 +2,14 @@
 import json
 from googletrans import Translator
 
+# traducir_texto(texto: string, destino: string) -> Translate given texto value
 def traducir_texto(texto, destino='en'):
     translator = Translator()
     # Translate the text to the language we want
     traduccion = translator.translate(texto, dest=destino)
     return traduccion.text 
 
+# obtener_capital(pais: string) -> Gets capital from pais'value
 def obtener_capital(pais):
     # Open the json file with countries and capitals information
     with open(r"TEMPFILES/paises_capitales.json", "r", encoding="utf-8") as archivo_json:

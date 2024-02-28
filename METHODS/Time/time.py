@@ -12,12 +12,14 @@ monthName = {
     9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"
 }
 
+# translateText(text: string, d: string) -> Translate given text value
 def translateText(text, d='en'):
     translator = Translator()
     # Translate the text to the language we want
     res = translator.translate(text, dest=d)
     return res.text 
 
+# getIsoCode(country: string) -> Gets isoCode from the country's value
 def getIsoCode(country):
     try:
         # https://pypi.org/project/pycountry/
@@ -28,7 +30,8 @@ def getIsoCode(country):
         return pais[0].alpha_2 #type: ignore
     except LookupError:
         return None
-    
+
+# getHour(input: string) -> Gets hour from the input's value place
 def getHour(input): 
     # Check if the word "hora" is in the sentence
     if "hora" in input.lower():
@@ -61,6 +64,7 @@ def getHour(input):
         # If the word "hora" is not in the sentence, do nothing
         return False
 
+# getActualTime() -> Gets actual time
 def getActualTime():
     acTime = datetime.now()
 
@@ -75,6 +79,7 @@ def getActualTime():
     else:
         return f'Son las {hour} y {mins} de la mañana'
 
+# getActualDay() -> Gets actual day
 def getActualDay():
     acTime = datetime.now()
 

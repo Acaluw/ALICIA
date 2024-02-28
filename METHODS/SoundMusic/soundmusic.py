@@ -9,6 +9,7 @@ import vlc
 player = None
 thread = None
 
+# audioDownload(name: string) -> Download the audio of the name value video
 def audioDownload(name):
 
     if 'lyrics' not in name and 'letra' not in name:
@@ -26,6 +27,7 @@ def audioDownload(name):
 
     return fileDownload
 
+# audioPlay(filePath: string) -> Search the audio file in the filepath given to play it
 def audioPlay(filePath):
     global thread
     def play():
@@ -45,14 +47,17 @@ def audioPlay(filePath):
     thread = threading.Thread(target=play)
     thread.start()
 
+# audioPause() -> Pause actual audio
 def audioPause():
     if player:
         player.pause()
 
+# audioResume() -> Resume actual audio
 def audioResume():
     if player:
         player.play()
 
+# audioStop() -> Stop actual audio
 def audioStop():
     if player:
         player.stop()

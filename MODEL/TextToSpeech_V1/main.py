@@ -7,7 +7,6 @@ import pyttsx3
 
 root_path = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_path))
-from LANGUAGES import main as lang
 from METHODS.Time import time
 from METHODS.VolumeControl import volumeControl
 from METHODS.SoundMusic import soundmusic
@@ -22,10 +21,11 @@ engine = pyttsx3.init()
 rate = engine.getProperty('rate')
 engine.setProperty('rate', rate-50)
 
+# soundTest() -> Plays default message to test the engine
 def soundTest():
     try:
         print('TextToSpeech || SoundTest')
-        engine.say(lang.esp['test'])
+        engine.say("Esta es una prueba de sonido")
         engine.runAndWait()
         engine.stop()
         return False
@@ -33,14 +33,16 @@ def soundTest():
         print(f"TextToSpeech || SoundTest: {Exception}")
         return False
 
+# welcome() -> Perform a welcome message when the keyword is detected
 def welcome():
     try:
         print('TextToSpeech || Welcome')
-        engine.say(lang.esp['welcome'])
+        engine.say("¿En qué puedo ayudarte?")
         engine.runAndWait()
     except Exception:
         print(f"TextToSpeech || Welcome: {Exception}")
 
+# ActualTime(input: string) -> Get time based on input value
 def ActualTime(input=""):
     try:
         print('TextToSpeech || ActualTime')
@@ -55,6 +57,7 @@ def ActualTime(input=""):
         print(f"TextToSpeech || ActualTime: {Exception}")
         return False
 
+# ActualDay() -> Get the actual day
 def ActualDay():
     try:
         print('TextToSpeech || ActualDay')
@@ -66,6 +69,7 @@ def ActualDay():
         print(f"TextToSpeech || ActualDay: {Exception}")
         return False
 
+# SetVolume(value: number) -> Change system volume
 def SetVolume(value):
     try:
         print(f'TextToSpeech || SetVolume ({value})')
@@ -75,6 +79,7 @@ def SetVolume(value):
         print(f"TextToSpeech || SetVolume: {Exception}")
         return False
 
+# playAudio(name: string) -> Search in youtube the name variable audio to play it
 def playAudio(name):
     try:
         print(f'TextToSpeech || PlayAudio ({name})')
@@ -87,6 +92,7 @@ def playAudio(name):
         print(f"TextToSpeech || PlayAudio: {Exception}")
         return False
 
+# stopAudio() -> Stop actual song
 def stopAudio():
     try:
         print(f'TextToSpeech || StopAudio')
@@ -96,6 +102,7 @@ def stopAudio():
         print(f"TextToSpeech || StopAudio: {Exception}")
         return False
 
+# pauseAudio() -> Pause actual song
 def pauseAudio():
     try:
         print(f'TextToSpeech || PauseAudio')
@@ -105,6 +112,7 @@ def pauseAudio():
         print(f"TextToSpeech || PauseAudio: {Exception}")
         return False
 
+# resumeAudio() -> Resume actual song
 def resumeAudio():
     try:
         print(f'TextToSpeech || ResumeAudio')
@@ -114,6 +122,7 @@ def resumeAudio():
         print(f"TextToSpeech || ResumeAudio: {Exception}")
         return False
 
+# getQrCode() -> Scan QRCode from the gui's webcam
 def getQrCode():
     try:
         print(f'TextToSpeech || GetQrCode')
@@ -125,6 +134,7 @@ def getQrCode():
         print(f"TextToSpeech || GetQrCode: {Exception}")
         return False
 
+# googleSearch(key: string) -> Search in google for the best option for the key value
 def googleSearch(key):
     try:
         print(f'TextToSpeech || GoogleSearch')
@@ -137,6 +147,7 @@ def googleSearch(key):
         print(f"TextToSpeech || GoogleSearch: {Exception}")
         return False
 
+# findPlace(zone: string, type: string) -> Search nearby type's value in a specific range in zone's value
 def findPlace(zone, type):
     try:
         print(f'TextToSpeech || FindPlace {zone}/{type}')
@@ -148,7 +159,8 @@ def findPlace(zone, type):
     except Exception:
         print(f"TextToSpeech || FindPlace: {Exception}")
         return False
-    
+
+# capitalCountry(country: string) -> Gives the actual country of the country's variable input
 def capitalCountry(country):
     try:
         print(f'TextToSpeech || CapitalCountry')
@@ -161,7 +173,8 @@ def capitalCountry(country):
     except Exception:
         print(f"TextToSpeech || CapitalCountry: {Exception}")
         return False
-    
+
+# weatherControl(input: string) -> Get actual weather of the places's input value    
 def weatherControl(input):
     try:
         print(f'TextToSpeech || WeatherControl')
@@ -172,7 +185,8 @@ def weatherControl(input):
     except Exception:
         print(f"TextToSpeech || WeatherControl: {Exception}")
         return False
-    
+
+# notFound() -> Call it when no available action is request by user
 def notFound():
     try:
         print(f'TextToSpeech || NotFound')
@@ -182,10 +196,11 @@ def notFound():
         print(f"TextToSpeech || NotFound: {Exception}")
         return False
 
+# goodbye() -> Performs a goodbye message
 def goodbye():
     try:
         print('TextToSpeech || Goodbye')
-        engine.say(lang.esp['goodbye'])
+        engine.say("¡Hasta pronto!")
         engine.runAndWait()
     except Exception:
         print(f"TextToSpeech || Goodbye: {Exception}")

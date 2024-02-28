@@ -72,6 +72,7 @@ def busqueda_tipo(frase):
     
     return None
 
+# obtener_latitud_longitud(input: string) -> Gets latitude and longitude from the input value
 def obtener_latitud_longitud(input):
     try:
         # Initialize geolocator

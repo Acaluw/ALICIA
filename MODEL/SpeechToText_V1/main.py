@@ -127,7 +127,7 @@ def runSpeechModel():
                 activeBool = tts.stopAudio()
             elif 'pausa' in action: # Pause actual song
                 activeBool = tts.pauseAudio()
-            elif 'continua' in action or 'reanuda' in action: # Resume actual song
+            elif 'continúa' in action or 'reanuda' in action: # Resume actual song
                 activeBool = tts.resumeAudio()
             elif ('escanea' in action or 'busca' in action) and 'código' in action: # Search for Qr Code in cam
                 camCapture = True
